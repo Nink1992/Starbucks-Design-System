@@ -1,0 +1,60 @@
+import { Meta, Title, Subtitle, Description, Canvas, Story, ArgsTable } from '@storybook/blocks';
+import * as SwitchStories from './Switch.stories';
+
+{/* 控制器：将此文档页与 Switch 组件的 stories 关联起来 */}
+<Meta of={SwitchStories} />
+
+{/* --- 页面头部 --- */}
+<Title>Switch 开关</Title>
+
+<Subtitle>
+  开关用于在两种状态（开启/关闭）之间进行切换，通常用于即时生效的设置。
+</Subtitle>
+
+<Description>
+  Switch 组件提供了一种简单直观的方式来表示二进制状态。它支持两种尺寸（常规/大）、禁用状态、加载状态，并且可以自定义开启和关闭时的背景颜色。
+</Description>
+
+{/* --- 组件用法演示 --- */}
+
+## 基础用法 (Basic Usage)
+<Description>
+  最常用的开关形态，点击即可切换状态。
+</Description>
+<Canvas>
+  <Story of={SwitchStories.Default} />
+</Canvas>
+
+## 尺寸 (Sizes)
+<Description>
+  提供两种尺寸：`medium` (常规，默认) 和 `large` (大)。
+</Description>
+<Canvas>
+  <Story of={SwitchStories.Default} />
+  <Story of={SwitchStories.Large} />
+</Canvas>
+
+## 状态 (States)
+<Description>
+  包括禁用状态和加载状态。在这些状态下，开关不可点击。
+</Description>
+<Canvas>
+  <Story of={SwitchStories.Disabled} />
+  <Story of={SwitchStories.Loading} />
+</Canvas>
+
+## 自定义颜色 (Custom Colors)
+<Description>
+  可以通过 `active-color` 和 `inactive-color` 属性自定义开关的颜色。
+</Description>
+<Canvas>
+  <Story of={SwitchStories.CustomColor} />
+</Canvas>
+
+{/* --- 属性文档 --- */}
+
+## 属性 (Props)
+<Description>
+  以下是 Switch 组件所有可配置的属性。
+</Description>
+<ArgsTable of={SwitchStories.Default} />

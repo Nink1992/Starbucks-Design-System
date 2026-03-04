@@ -1,0 +1,89 @@
+.switch-wrapper {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  user-select: none;
+  background-color: var(--gray-5);
+
+  /* 滑块 */
+  .switch-thumb {
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--white);
+    transition: transform 0.3s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* 激活状态 */
+  &.is-checked {
+    background-color: var(--primary-color);
+  }
+
+  /* 禁用状态 */
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  /* 加载状态 */
+  &.is-loading {
+    cursor: not-allowed;
+    opacity: 0.8;
+
+    .switch-thumb::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 60%;
+      border: 1px solid var(--primary-color);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: switch-loading 1s linear infinite;
+    }
+  }
+
+  /* 尺寸: Medium (默认) */
+  &.size-medium {
+    width: 32px;
+    height: 16px;
+
+    .switch-thumb {
+      width: 12px;
+      height: 12px;
+      top: 2px;
+      left: 2px;
+    }
+
+    &.is-checked .switch-thumb {
+      transform: translateX(16px);
+    }
+  }
+
+  /* 尺寸: Large (大) */
+  &.size-large {
+    width: 40px;
+    height: 20px;
+
+    .switch-thumb {
+      width: 16px;
+      height: 16px;
+      top: 2px;
+      left: 2px;
+    }
+
+    &.is-checked .switch-thumb {
+      transform: translateX(20px);
+    }
+  }
+}
+
+@keyframes switch-loading {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
