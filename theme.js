@@ -7,7 +7,7 @@ export default create({
   // 品牌信息 (模拟 Vibe)
   brandTitle: 'Trae Design System',
   brandUrl: 'https://example.com',
-  brandImage: '/logo.svg',
+  brandImage: '/Logo-Starbucks.svg',
   brandTarget: '_self',
 
   // 主题色 (恢复为您的品牌色)
