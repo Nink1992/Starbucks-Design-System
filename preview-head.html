@@ -1,0 +1,28 @@
+<style>
+  /* 全局强制移除所有阴影 */
+  .sbdocs-preview {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 8px !important;
+  }
+
+  /* 针对 ArgsTable 和所有表格结构 - 仅移除阴影 */
+  .docblock-argstable,
+  .sbdocs table,
+  .sbdocs div[class*="css-"] {
+    box-shadow: none !important;
+    filter: none !important; /* 防止 drop-shadow */
+  }
+
+  /* 针对可能的动态类名容器 */
+  div[id^="anchor--"] + div > div,
+  div[id^="story--"] + div > div {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+  }
+  
+  /* 最后的手段：移除所有直接子 div 的阴影（除了代码块） */
+  .sbdocs-content > div > div:not(pre) {
+    box-shadow: none !important;
+  }
+</style>
