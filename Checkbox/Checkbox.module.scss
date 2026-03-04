@@ -1,0 +1,110 @@
+.checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  vertical-align: middle; /* 优化垂直对齐 */
+
+  /* 基础状态: 未选中 */
+  .checkbox-box {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    border: 1px solid var(--gray-4);
+    background-color: var(--white);
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, border-color 0.2s; /* 明确过渡属性，防止抖动 */
+    position: relative;
+    box-sizing: border-box;
+    flex-shrink: 0; /* 防止被压缩 */
+
+    /* 勾选图标 */
+    .checkbox-icon {
+      color: var(--white);
+      width: 9px;
+      height: 7px;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.2s, transform 0.2s; /* 明确过渡属性 */
+      
+      /* SVG path */
+      &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: currentColor;
+        mask-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.66667 7.5L0.5 4.33333L1.66667 3.16667L3.66667 5.16667L8.33333 0.5L9.5 1.66667L3.66667 7.5Z' fill='white'/%3E%3C/svg%3E");
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.66667 7.5L0.5 4.33333L1.66667 3.16667L3.66667 5.16667L8.33333 0.5L9.5 1.66667L3.66667 7.5Z' fill='white'/%3E%3C/svg%3E");
+        -webkit-mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+      }
+    }
+
+    /* 横线图标 (部分选中) */
+    .checkbox-dash-icon {
+      color: var(--white);
+      width: 10px;
+      height: 2px;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.2s, transform 0.2s;
+      background-color: currentColor;
+      border-radius: 1px;
+    }
+  }
+
+  /* 悬浮状态 */
+  &:hover:not(.is-disabled) {
+    .checkbox-box {
+      border-color: var(--primary-color);
+    }
+  }
+
+  /* 选中状态 */
+  &.is-checked {
+    .checkbox-box {
+      border-color: var(--primary-color);
+      background-color: var(--primary-color);
+
+      .checkbox-icon {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+
+  /* 部分选中状态 */
+  &.is-indeterminate {
+    .checkbox-box {
+      border-color: var(--primary-color);
+      background-color: var(--primary-color);
+
+      .checkbox-dash-icon {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+
+  /* 禁用状态 */
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    .checkbox-box {
+      background-color: var(--gray-2);
+      border-color: var(--gray-4);
+    }
+  }
+}
