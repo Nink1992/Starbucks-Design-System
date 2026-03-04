@@ -1,0 +1,29 @@
+{
+  "name": "figma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/addon-interactions": "^8.6.14",
+    "@storybook/addon-links": "^8.6.17",
+    "@storybook/vue3-vite": "^8.6.17",
+    "@vitejs/plugin-vue": "^6.0.4",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^28.1.0",
+    "sass": "^1.97.3",
+    "storybook": "^8.6.17",
+    "vite": "^6.4.1",
+    "vitest": "^4.0.18",
+    "vue": "^3.5.29"
+  }
+}
