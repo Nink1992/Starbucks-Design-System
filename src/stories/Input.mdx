@@ -1,0 +1,51 @@
+import { Meta, Title, Subtitle, Description, Canvas, Story, ArgsTable } from '@storybook/blocks';
+import * as InputStories from './Input.stories';
+
+{/* 控制器：将此文档页与 Input 组件的 stories 关联起来 */}
+<Meta of={InputStories} />
+
+{/* --- 页面头部 --- */}
+<Title>Input 输入框</Title>
+
+<p style={{ fontSize: '18px', color: '#666', marginTop: '-10px', marginBottom: '40px' }}>
+  一个灵活且功能丰富的输入框，用于收集、编辑和展示用户输入的文本信息。
+</p>
+
+<Description>
+  它支持多种尺寸、状态，并允许添加自定义的前后缀内容，以适应不同的业务场景。
+</Description>
+
+{/* --- 组件用法演示 --- */}
+
+## 基础用法 (Basic Usage)
+<Description>
+  最常用的输入框形态。
+</Description>
+<Canvas>
+  <Story of={InputStories.Default} />
+</Canvas>
+
+## 带有前后缀 (Prefix & Suffix)
+<Description>
+  通过添加前后缀，可以为输入框提供额外的上下文信息，例如单位或图标。
+</Description>
+<Canvas>
+  <Story of={InputStories.WithPrefix} />
+  <Story of={InputStories.WithSuffix} />
+</Canvas>
+
+## 禁用状态 (Disabled)
+<Description>
+  当输入框处于不可用状态时，它将不会响应用户的任何操作。
+</Description>
+<Canvas>
+  <Story of={InputStories.Disabled} />
+</Canvas>
+
+{/* --- 属性文档 --- */}
+
+## 属性 (Props)
+<Description>
+  以下是 Input 组件所有可配置的属性。
+</Description>
+<ArgsTable of={InputStories.Default} />
