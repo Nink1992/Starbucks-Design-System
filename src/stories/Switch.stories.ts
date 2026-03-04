@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import TraeSwitch from '../../Switch/index';
 
 const meta = {
-  title: 'Components/Switch',
+  title: 'Components/开关 Switch',
   component: TraeSwitch,
   tags: ['autodocs'],
   argTypes: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import TraeInput from '../../Input/index';
 
 const meta = {
-  title: 'Components/Input',
+  title: 'Components/输入框 Input',
   component: TraeInput,
   tags: ['autodocs'],
   argTypes: {
