@@ -1,9 +1,4 @@
 :root {
-  /* 字体家族 (Font Family) */
-  --font-family-chinese: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans S Chinese", sans-serif;
-  --font-family-english: "Poppins", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  --font-family-numeric: "Roboto", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-
   /* 品牌色 (Primary) */
   --primary-color: #00754A;
   --primary-color-light: #E6F7F1;
@@ -66,8 +61,4 @@
   --text-white-secondary: rgba(255, 255, 255, 0.55);
   --text-white-tertiary: rgba(255, 255, 255, 0.35);
   --text-white-quaternary: rgba(255, 255, 255, 0.22);
-}
-
-body {
-  font-family: var(--font-family-english), var(--font-family-chinese);
 }
