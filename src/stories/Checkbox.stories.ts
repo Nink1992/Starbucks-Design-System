@@ -3,7 +3,7 @@ import TraeCheckbox from '../../Checkbox/index';
 import { ref, computed } from 'vue';
 
 const meta = {
-  title: 'Components/复选框 Checkbox',
+  title: '复选框 Checkbox',
   component: TraeCheckbox,
   tags: ['autodocs'],
   argTypes: {

@@ -7,27 +7,53 @@
   background-color: var(--white);
   transition: border-color 0.2s, box-shadow 0.2s;
 
-  &:hover {
+  /* 交互状态：仅在非禁用且非只读时生效 */
+  &:not(.is-disabled):not(.is-readonly):hover {
     border-color: var(--primary-color-hover);
   }
 
-  &.is-focused {
+  &:not(.is-disabled):not(.is-readonly).is-focused {
     border-color: var(--primary-color-hover);
     box-shadow: 0 0 0 2px var(--primary-color-focus);
   }
 
   &.is-disabled {
     background-color: var(--gray-1);
+    border-color: var(--gray-4); /* 强制灰色边框 */
     cursor: not-allowed;
 
     .input-core {
       cursor: not-allowed;
       color: var(--text-disabled);
+      background-color: transparent; /* 确保背景透明 */
+    }
+    
+    /* 禁用状态下不响应 hover */
+    &:hover {
+      border-color: var(--gray-4);
     }
   }
 
   &.is-readonly {
-    background-color: var(--gray-1);
+    background-color: var(--gray-1); /* 只读状态通常也是灰色背景 */
+    border-color: var(--gray-4);
+    cursor: default;
+
+    .input-core {
+      cursor: default;
+      color: var(--text-secondary); /* 文字颜色比禁用深一些 */
+    }
+
+    /* 只读状态下不响应 hover */
+    &:hover {
+      border-color: var(--gray-4);
+    }
+    
+    /* 只读状态可以聚焦，但样式可以区分 */
+    &.is-focused {
+      border-color: var(--gray-4);
+      box-shadow: 0 0 0 2px var(--gray-3); /* 使用灰色光圈 */
+    }
   }
 
   &.is-error {
