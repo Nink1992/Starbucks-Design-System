@@ -1,9 +1,10 @@
-// .storybook/preview.js
+// .storybook/preview.ts
+import type { Preview } from '@storybook/vue3';
 import '../src/styles/variables.css';
 import '../src/styles/typography.scss';
-import theme from './theme.js';
+import theme from './theme';
 
-const preview = {
+const preview: Preview = {
   parameters: {
     docs: {
       theme: theme,

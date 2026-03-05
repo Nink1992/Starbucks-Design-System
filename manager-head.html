@@ -1,2 +1,98 @@
 <!-- .storybook/manager-head.html -->
-<link rel="icon" type="image/svg+xml" href="./Logo-Starbucks.svg" />
+<link rel="icon" type="image/svg+xml" href="./logo2.svg" />
+
+<style>
+  /* -----------------------------------------------------------------
+     Sidebar Customization (Clean White Style)
+     ----------------------------------------------------------------- */
+
+  /* 1. 侧边栏整体背景与字体 */
+  .sidebar-container, 
+  nav[role="navigation"] {
+    background-color: #ffffff !important;
+    font-family: "Figtree", -apple-system, BlinkMacSystemFont, sans-serif !important;
+  }
+
+  /* 2. 隐藏默认的组件图标和文档图标 (Vibe 风格) */
+  /* 只隐藏链接(a标签)中的图标，保留按钮(button)中的折叠箭头 */
+  nav[role="navigation"] a svg {
+    display: none !important; 
+  }
+  
+  /* 3. 侧边栏条目样式 (加大字号，增加间距) */
+  nav[role="navigation"] a,
+  nav[role="navigation"] button {
+    font-size: 15px !important; /* Vibe 字号较大 */
+    line-height: 1.5 !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    color: #333333 !important; /* 深灰色文本 */
+  }
+
+  /* 4. 选中状态高亮 - 使用更明显的品牌色样式 */
+  /* 增加权重以覆盖所有可能的状态，包括 :hover, :visited, :focus */
+  #storybook-explorer-tree a[data-selected="true"],
+  #storybook-explorer-tree button[data-selected="true"],
+  nav[role="navigation"] a[data-selected="true"],
+  nav[role="navigation"] button[data-selected="true"],
+  .sidebar-item-selected {
+    color: #ffffff !important;
+    background-color: #00754A !important; 
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+  }
+
+  /* 强制覆盖选中状态下的 Hover 效果 */
+  /* 防止鼠标悬停在选中项上时背景色变浅 */
+  #storybook-explorer-tree a[data-selected="true"]:hover,
+  #storybook-explorer-tree button[data-selected="true"]:hover,
+  nav[role="navigation"] a[data-selected="true"]:hover,
+  nav[role="navigation"] button[data-selected="true"]:hover {
+    background-color: #00754A !important;
+    color: #ffffff !important;
+  }
+  
+  /* 确保选中项内部的所有子元素（包括图标、文字容器）也变白 */
+  #storybook-explorer-tree a[data-selected="true"] *,
+  #storybook-explorer-tree button[data-selected="true"] * {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+  }
+
+  /* 5. 悬停状态 - 使用品牌规范中的 Light 色作为背景 */
+  /* --primary-color-light: #E6F7F1; */
+  nav[role="navigation"] a:hover,
+  nav[role="navigation"] button:hover {
+    background-color: #E6F7F1 !important; /* 悬停时背景变浅绿 (Brand Light) */
+    color: #00754A !important; /* 悬停时文字保持品牌绿 (Brand Primary) */
+    border-radius: 4px !important;
+  }
+  
+  /* 悬停时图标颜色也需要变品牌绿 */
+  nav[role="navigation"] a:hover svg,
+  nav[role="navigation"] button:hover svg {
+    color: #00754A !important;
+    fill: #00754A !important;
+  }
+
+  /* 6. 顶部品牌区域 */
+  .sidebar-header img {
+    max-height: 32px !important; /* 调整 Logo 大小 */
+  }
+
+  /* 7. 侧边栏搜索框样式覆盖 */
+  /* 仅修改颜色，保留 Storybook 原生布局 */
+  #storybook-explorer-searchfield {
+    border: 1px solid #DCDCDC !important; /* gray-4 */
+    background: #FFFFFF !important; /* white */
+    color: #333333 !important; /* text color */
+    border-radius: 4px !important;
+  }
+
+  /* 搜索框聚焦状态 */
+  #storybook-explorer-searchfield:focus {
+    border-color: #00754A !important; /* primary-color */
+    box-shadow: 0 0 0 1px #00754A !important;
+    outline: none !important;
+  }
+</style>
