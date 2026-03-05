@@ -5,6 +5,13 @@ const meta = {
   title: '数据录入/输入框 Input',
   component: TraeInput,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: '<span style="font-size: 14px; color: #666;">Input 组件是表单系统的核心元素，用于承载用户的文本数据输入。它通过标准化的视觉反馈和功能扩展，引导用户高效、准确地完成信息录入。</span>',
+      },
+    },
+  },
   argTypes: {
     size: { control: 'select', options: ['large', 'medium', 'small'] },
     status: { control: 'select', options: ['normal', 'error'] },

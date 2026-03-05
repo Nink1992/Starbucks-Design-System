@@ -1,89 +1,74 @@
-## 组件规范：Input (输入框)
+# 组件规范: Input (输入框)
 
-### 1. 概览 (Overview)
+## 1. 概览 (Overview)
 
 * **目的 (Purpose):** `Input` 组件是表单系统的核心元素，用于承载用户的文本数据输入。它通过标准化的视觉反馈和功能扩展，引导用户高效、准确地完成信息录入。
-* **主要能力 (Primary Capabilities):**
+* **核心能力 (Capabilities):**
 * **基础输入:** 支持受控/非受控模式，支持原生 `type` 属性（text, password, number 等）。
-* **尺寸变体:** 提供 **Large (40px)**、**Medium (32px)**、**Small (24px)** 三种高度。
+* **尺寸变体:** 提供 Large (40px)、Medium (32px)、Small (24px) 三种高度。
 * **增强插件:** 支持前缀/后缀（图标或文本）、一键清空（Clearable）、字数统计（Show Count）。
 * **反馈交互:** 包含 Hover、Focus、Disabled、ReadOnly 及 Validation Error 等视觉状态。
-* **组合性:** 高度灵活，可嵌入表单项、搜索栏或弹窗。
-
-
 
 ---
 
-### 2. 架构规划 (Architecture Planning)
+## 2. 架构规划 (Architecture Planning)
 
-**文件结构建议 (File Structure Recommendation)**
+建议 Vue 文件结构如下：
 
 ```text
 Input/
 ├── Input.vue                 // 主组件
-├── Input.types.ts            // Props, Emits 定义及接口
-├── Input.module.scss         // 作用域样式 (BEM 命名)
-├── index.ts                  // 组件导出
-├── components/               // 子组件目录
-│   ├── InputAffix.vue        // 前缀/后缀装饰组件
-│   ├── InputClearIcon.vue    // 清空按钮组件
-│   └── InputCount.vue        // 字数统计组件
-├── hooks/                    // 逻辑抽象
-│   └── useInputStatus.ts     // 处理 Focus/Hover 等状态逻辑
-├── consts/                   // 常量目录
-│   ├── size-configs.ts       // 预设高度、内边距映射
-│   └── status-maps.ts        // 状态 Class 映射
-├── __tests__/                // 单元测试
-└── __stories__/              // Storybook 展示文件
-
+├── Input.types.ts            // 类型定义
+├── components/               // 子组件
+│   ├── InputAffix.vue        // 前后缀
+│   └── InputCount.vue        // 字数统计
+├── index.ts                  // 导出组件
+└── __tests__/                // 单元测试
 ```
 
-**文件结构理由 (File Structure Rationale):**
+---
 
-* **对齐 Figma:** 子组件拆分直接对应 Figma 属性开关，便于属性映射。
-* **状态解耦:** 将复杂的交互逻辑移入 Hooks，确保主组件逻辑清晰。
-* **样式原子化:** 方便通过 CSS Variables 实现主题切换。
+## 3. 详细开发规范 (Detailed Specs)
+
+### 3.1 属性定义 (Props - Vue 3)
+
+| 属性名 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `modelValue` | `string | number` | `-` | 绑定值 |
+| `type` | `string` | `'text'` | 输入框类型 |
+| `placeholder` | `string` | `-` | 占位文本 |
+| `size` | `'large' | 'medium' | 'small'` | `'medium'` | 尺寸 |
+| `disabled` | `boolean` | `false` | 是否禁用 |
+| `allowClear` | `boolean` | `false` | 是否允许清空 |
+| `status` | `'error' | 'warning'` | `-` | 校验状态 |
+
+### 3.2 尺寸规格 (Sizing)
+
+* **高度 (Height):**
+    * `large`: 40px
+    * `medium`: 32px
+    * `small`: 24px
+* **圆角 (Border Radius):**
+    * 统一圆角: 4px
+* **内边距 (Padding):**
+    * 水平内边距: 12px
+
+### 3.3 视觉状态与颜色 Token (Visual Tokens)
+
+请严格遵守 `/rules/Color.md` 中的全局 Token。
+
+| 状态 | 视觉表现 |
+| --- | --- |
+| **Normal** | 边框: `gray-4` / 背景: `white` |
+| **Hover** | 边框: `primary-color-hover` |
+| **Focus** | 边框: `primary-color` / 阴影: `primary-color` (Fade) |
+| **Error** | 边框: `error-color` |
+| **Disabled** | 背景: `gray-2` / 边框: `gray-4` / 文字: `text-disabled` |
 
 ---
 
-### 3. 组件拆分策略 (Component Splitting Strategy)
+## 4. 交互行为 (Interaction)
 
-**推荐的组件细分 (Recommended Component Breakdown):**
-
-* **Input (主组件):**
-* 负责 `v-model` 同步、DOM 事件转发及外层容器状态控制。
-
-
-* **InputAffix (装饰组件):**
-* 处理 `prefix` 和 `suffix` 插槽，需根据主组件 `size` 自动缩放图标尺寸。
-
-
-* **InputClearIcon (清空功能):**
-* 仅在 `allowClear` 为真、非空且 Hover 时显示，点击触发更新事件。
-
-
-* **InputCount (字数统计):**
-* 渲染当前字数/最大字数，并在超出限制时切换为错误色。
-
-
-
----
-
-### 4. 交互与视觉规则 (Interactive & Visual Rules)
-
-| 状态 (Status) | 视觉表现 (Visual Requirements) | 触发条件 |
-| --- | --- | --- |
-| **Normal** | 边框为 `$color-border-default`，背景白色。 | 默认状态。 |
-| **Hover** | 边框色切换为 `$color-primary-hover`。 | 鼠标悬停。 |
-| **Focus** | 边框维持主色，增加品牌色扩散阴影。 | 焦点置入。 |
-| **Error** | 边框与阴影切换为红色系 `$color-error`。 | `status="error"`。 |
-| **Disabled** | 背景变灰，`cursor: not-allowed`。 | `disabled` 激活。 |
-
----
-
-### 5. 辅助功能 (Accessibility)
-
-* **ARIA:** 支持 `aria-invalid`（错误）及 `aria-required`（必填）。
-* **Keyboard:** 支持 `Tab` 切换焦点，`Enter` 触发提交逻辑。
-
----
+1. **聚焦行为:** 聚焦时边框变色并显示光晕阴影。
+2. **清空操作:** 当 `allowClear` 开启且有内容时，Hover 显示清空图标，点击清空内容并保持焦点。
+3. **字数统计:** 输入时实时更新字数，超出限制时显示错误样式。
