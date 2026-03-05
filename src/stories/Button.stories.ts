@@ -6,6 +6,13 @@ const meta = {
   title: '通用/按钮 Button',
   component: TraeButton,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: '<span style="font-size: 14px; color: #666;">Button 组件用于触发具体的业务逻辑或交互行为。</span>',
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: 'select',
