@@ -1,0 +1,135 @@
+@import '../src/styles/typography.scss';
+
+.radio-wrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  margin-right: 24px;
+  vertical-align: middle;
+  position: relative;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    .radio-label {
+      color: var(--text-disabled);
+    }
+  }
+}
+
+.radio-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Basic Variant */
+.radio-basic {
+  display: inline-flex;
+  align-items: center;
+
+  .radio-indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid var(--gray-4);
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-right: 8px;
+    box-sizing: border-box;
+
+    &::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--white);
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2); /* Subtle shadow for inner dot */
+    }
+  }
+
+  /* Hover State */
+  &:not(.is-disabled):hover .radio-indicator {
+    border-color: var(--primary-color-hover);
+  }
+
+  /* Checked State */
+  &.is-checked {
+    .radio-indicator {
+      border-color: var(--primary-color);
+      background-color: var(--primary-color);
+      
+      &::after {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+
+  /* Focus State */
+  &:not(.is-disabled).is-focused .radio-indicator,
+  .radio-input:focus + .radio-indicator {
+    border-color: var(--primary-color-focus);
+    box-shadow: 0 0 0 2px var(--primary-color-focus);
+  }
+
+  /* Disabled State */
+  &.is-disabled {
+    .radio-indicator {
+      background-color: var(--gray-2);
+      border-color: var(--gray-4);
+    }
+    
+    &.is-checked .radio-indicator {
+      border-color: var(--gray-4);
+      background-color: var(--gray-2);
+      
+      &::after {
+        opacity: 1;
+        transform: scale(1);
+        background-color: var(--gray-6); /* Show inner circle for disabled checked */
+        width: 6px;
+        height: 6px;
+        box-shadow: none;
+      }
+    }
+  }
+
+  /* Error State */
+  &.is-error {
+    .radio-indicator {
+      border-color: var(--error5-color-normal);
+    }
+  }
+}
+
+.radio-label {
+  @include typography-text3-regular;
+  color: var(--text-primary);
+}
+
+/* Vertical Layout overrides (usually handled by RadioGroup) */
+.radio-group-vertical {
+  display: flex;
+  flex-direction: column;
+  
+  .radio-wrapper {
+    margin-right: 0;
+    margin-bottom: 16px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
