@@ -6,6 +6,13 @@ const meta = {
   title: '数据录入/复选框 Checkbox',
   component: TraeCheckbox,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: '<span style="font-size: 14px; color: #666;">复选框用于在一组可选项中进行多项选择。</span>',
+      },
+    },
+  },
   argTypes: {
     modelValue: { control: 'boolean' },
     label: { control: 'text' },

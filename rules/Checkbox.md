@@ -1,75 +1,68 @@
-# Checkbox 复选框组件规范
+# 组件规范: Checkbox (复选框)
 
-### 1. 组件描述
-复选框用于在一组可选项中进行多项选择。
+## 1. 概览 (Overview)
 
-### 2. 使用场景
-- 在一组数据中，用户可通过复选框选择一个或多个数据。
-- 需要明确表示“选中/未选中”状态时。
+* **目的 (Purpose):** `Checkbox` 组件用于在一组可选项中进行多项选择。
+* **核心能力 (Capabilities):**
+* **多状态:** 支持选中 (Checked)、未选中 (Unchecked) 和 部分选中 (Indeterminate) 三种状态。
+* **组合使用:** 通过 `CheckboxGroup` 实现全选/反选及数据双向绑定。
+* **灵活布局:** 支持单独使用或成组使用，适应不同的表单场景。
+* **状态反馈:** 包含 Hover、Focus、Disabled 等标准交互状态。
 
-### 3. 复选框组 (Checkbox Group)
-复选框可以与其他复选框具有父子关系，常用于全选/反选场景。
+---
 
-- **全选**: 选中父级选项后，所有子复选框均被选中。
-- **部分选中**: 如果选中了部分子复选框，则父复选框变为不确定的复选框 (Indeterminate)，通常表现为横线图标。
-- **全不选**: 如果未选中父复选框，则所有子复选框均未选中。
+## 2. 架构规划 (Architecture Planning)
 
-### 4. 属性 (Props)
-- `modelValue`: (Boolean | Array) 绑定值。
-  - 单个使用时为 `Boolean` (true/false)。
-  - 组合使用时为 `Array` (选中值的数组)。
-- `label`: (String) 复选框文本内容。
-- `value`: (String | Number | Boolean) 复选框的值（用于组合使用）。
-- `disabled`: (Boolean) 是否禁用。
-- `indeterminate`: (Boolean) 是否处于部分选中状态（常用于全选功能）。
+建议 Vue 文件结构如下：
 
-### 4. 样式规范 (Styles)
+```text
+Checkbox/
+├── Checkbox.vue             // 主组件
+├── CheckboxGroup.vue        // 复选框组组件
+├── Checkbox.types.ts        // 类型定义
+├── index.ts                 // 导出组件
+└── __tests__/               // 单元测试
+```
 
-#### 基础样式
-- `display`: inline-flex
-- `align-items`: center
-- `cursor`: pointer (禁用时为 not-allowed)
-- `font-size`: 12px (参考设计稿)
-- `line-height`: 1.6
-- `color`: `var(--text-primary)`
+---
 
-#### 尺寸规格 (Sizes)
-- **复选框 (Box)**:
-  - `width`: 14px
-  - `height`: 14px
-  - `border-radius`: 4px
-  - `margin-right`: 8px (Box 与 Label 之间的间距)
+## 3. 详细开发规范 (Detailed Specs)
 
-#### 颜色规范 (Colors)
+### 3.1 属性定义 (Props - Vue 3)
 
-**未选中状态 (Unchecked)**
-- `border`: 1px solid `var(--gray-4)` (或 #D9D9D9)
-- `background-color`: `var(--white)`
+| 属性名 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `modelValue` | `boolean | any[]` | `false` | 绑定值 (单个为布尔，组为数组) |
+| `label` | `string` | `-` | 复选框显示的文本 |
+| `value` | `string | number | boolean` | `-` | 选中时的值 (用于组合) |
+| `disabled` | `boolean` | `false` | 是否禁用 |
+| `indeterminate` | `boolean` | `false` | 是否处于部分选中状态 |
 
-**选中状态 (Checked)**
-- `border-color`: `var(--primary-color)`
-- `background-color`: `var(--primary-color)`
-- **勾选图标 (Check Icon)**:
-  - `color`: `var(--white)`
-  - `width`: 9px
-  - `height`: 7px
+### 3.2 尺寸规格 (Sizing)
 
-**部分选中状态 (Indeterminate)**
-- `border-color`: `var(--primary-color)`
-- `background-color`: `var(--primary-color)`
-- **横线图标 (Dash Icon)**:
-  - `color`: `var(--white)`
+* **复选框 (Box):**
+    * 宽高: 16px * 16px (视觉对齐建议)
+    * 圆角: 4px
+* **间距 (Spacing):**
+    * 框与文字间距: 8px
+    * 组内选项间距: 16px (水平排列)
 
-**禁用状态 (Disabled)**
-- `opacity`: 0.5
-- `cursor`: not-allowed
-- `background-color`: `var(--gray-2)`
+### 3.3 视觉状态与颜色 Token (Visual Tokens)
 
-### 5. 交互 (Interaction)
-- **悬浮 (Hover)**:
-  - 未选中时，边框颜色加深或变为品牌色（如 `var(--primary-color-hover)`）。
-- **点击 (Click)**:
-  - 切换选中/未选中状态。
-  - 触发 `change` 事件。
-- **波纹效果 (Ripple)**:
-  - (可选) 点击时可能有扩散动画。
+请严格遵守 `/rules/Color.md` 中的全局 Token。
+
+| 状态 | 视觉表现 |
+| --- | --- |
+| **Normal (Unchecked)** | 边框: `gray-4` / 背景: `white` |
+| **Checked** | 边框: `primary-color` / 背景: `primary-color` / 图标: `white` |
+| **Indeterminate** | 边框: `primary-color` / 背景: `primary-color` / 图标: `white` (横线) |
+| **Hover (Unchecked)** | 边框: `primary-color-hover` |
+| **Disabled** | 边框: `gray-4` / 背景: `gray-2` / 透明度: 0.5 |
+
+---
+
+## 4. 交互行为 (Interaction)
+
+1. **点击交互:** 点击 Box 或 Label 均可触发状态切换。
+2. **Indeterminate:** 该状态通常由父级控制，点击时通常切换为“全选”或“全不选”状态。
+3. **动画:** 选中/取消选中时应有轻微的缩放或渐变动画。
