@@ -1,98 +1,133 @@
-<!-- .storybook/manager-head.html -->
-<link rel="icon" type="image/svg+xml" href="./logo2.svg" />
+<link rel="icon" type="image/svg+xml" href="./Logo-Starbucks.svg" />
 
 <style>
-  /* -----------------------------------------------------------------
-     Sidebar Customization (Clean White Style)
-     ----------------------------------------------------------------- */
+  /* 
+   * 强制覆盖 Storybook 内部组件的默认蓝色样式
+   * 目标：将所有 Hover 态和 Active 态修正为品牌色 (#00754A)
+   */
 
-  /* 1. 侧边栏整体背景与字体 */
-  .sidebar-container, 
-  nav[role="navigation"] {
-    background-color: #ffffff !important;
-    font-family: "Figtree", -apple-system, BlinkMacSystemFont, sans-serif !important;
-  }
-
-  /* 2. 隐藏默认的组件图标和文档图标 (Vibe 风格) */
-  /* 只隐藏链接(a标签)中的图标，保留按钮(button)中的折叠箭头 */
-  nav[role="navigation"] a svg {
-    display: none !important; 
-  }
-  
-  /* 3. 侧边栏条目样式 (加大字号，增加间距) */
-  nav[role="navigation"] a,
-  nav[role="navigation"] button {
-    font-size: 15px !important; /* Vibe 字号较大 */
-    line-height: 1.5 !important;
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
-    color: #333333 !important; /* 深灰色文本 */
+  /* 1. 底部面板 Tab (Actions, Controls 等) Hover 状态 */
+  button[role="tab"]:hover,
+  .tabbutton:hover {
+    color: #00754A !important; /* primary-color */
   }
 
-  /* 4. 选中状态高亮 - 使用更明显的品牌色样式 */
-  /* 增加权重以覆盖所有可能的状态，包括 :hover, :visited, :focus */
-  #storybook-explorer-tree a[data-selected="true"],
-  #storybook-explorer-tree button[data-selected="true"],
-  nav[role="navigation"] a[data-selected="true"],
-  nav[role="navigation"] button[data-selected="true"],
-  .sidebar-item-selected {
-    color: #ffffff !important;
-    background-color: #00754A !important; 
-    font-weight: 600 !important;
-    border-radius: 4px !important;
-  }
-
-  /* 强制覆盖选中状态下的 Hover 效果 */
-  /* 防止鼠标悬停在选中项上时背景色变浅 */
-  #storybook-explorer-tree a[data-selected="true"]:hover,
-  #storybook-explorer-tree button[data-selected="true"]:hover,
-  nav[role="navigation"] a[data-selected="true"]:hover,
-  nav[role="navigation"] button[data-selected="true"]:hover {
-    background-color: #00754A !important;
-    color: #ffffff !important;
-  }
-  
-  /* 确保选中项内部的所有子元素（包括图标、文字容器）也变白 */
-  #storybook-explorer-tree a[data-selected="true"] *,
-  #storybook-explorer-tree button[data-selected="true"] * {
-    color: #ffffff !important;
-    fill: #ffffff !important;
-  }
-
-  /* 5. 悬停状态 - 使用品牌规范中的 Light 色作为背景 */
-  /* --primary-color-light: #E6F7F1; */
-  nav[role="navigation"] a:hover,
-  nav[role="navigation"] button:hover {
-    background-color: #E6F7F1 !important; /* 悬停时背景变浅绿 (Brand Light) */
-    color: #00754A !important; /* 悬停时文字保持品牌绿 (Brand Primary) */
-    border-radius: 4px !important;
-  }
-  
-  /* 悬停时图标颜色也需要变品牌绿 */
-  nav[role="navigation"] a:hover svg,
-  nav[role="navigation"] button:hover svg {
+  /* 2. 底部面板 Tab 选中状态 */
+  button[role="tab"][aria-selected="true"],
+  .tabbutton.active {
     color: #00754A !important;
+    border-bottom-color: #00754A !important; 
+  }
+
+  /* 3. 侧边栏菜单项 Hover 状态 */
+  .sidebar-item:hover,
+  a.sidebar-item:hover,
+  button.sidebar-item:hover {
+    color: #00754A !important;
+    background-color: #E6F7F1 !important; /* primary-color-light */
+  }
+
+  /* 4. 通用链接 Hover */
+  a:hover {
+    color: #00754A !important;
+  }
+
+  /* 5. 修正任何可能的默认蓝色 Focus 轮廓 */
+  *:focus {
+    outline-color: #00754A !important;
+  }
+
+  /* 
+   * 6. Controls 面板输入框样式覆盖 
+   * 确保 Text 输入框、Textarea 等在 Focus 时使用品牌色
+   */
+  #storybook-panel-root textarea:focus,
+  #storybook-panel-root input[type="text"]:focus,
+  #storybook-panel-root select:focus {
+    border-color: #00754A !important; /* primary-color */
+    box-shadow: 0 0 0 1px #00754A !important; /* 模拟 focus ring */
+    outline: none !important;
+  }
+  
+  /* 确保输入框默认边框也是灰色 (与 theme.ts 一致，双重保险) */
+  #storybook-panel-root textarea,
+  #storybook-panel-root input[type="text"],
+  #storybook-panel-root select {
+    border-color: #DCDCDC !important; /* gray-4 */
+  }
+
+  /* 
+   * 7. 侧边栏图标控制 (修正版)
+   * 目标：显示折叠箭头，隐藏组件类型图标和 Story 图标
+   */
+
+  /* A. Story (叶子节点/链接) */
+  /* 隐藏所有链接类型的图标 (Docs, Bookmark 等) */
+  a.sidebar-item svg {
+    display: none !important;
+  }
+
+  /* 
+   * 修正子菜单缩进 (增强选择器优先级)
+   * 由于隐藏了图标，子菜单文字需要左移以对齐父级标题
+   * Storybook 的默认 padding 可能被更高优先级的规则覆盖，因此需要使用 ID 选择器增强权重
+   */
+  #storybook-explorer-tree a.sidebar-item {
+    padding-left: 20px !important; /* 强制对齐父级标题 */
+  }
+  
+  /* 特殊处理：Docs 页面通常是第一项，可能需要额外调整 */
+  #storybook-explorer-tree a.sidebar-item[data-item-id*="docs"] {
+    padding-left: 20px !important;
+  }
+
+  /* B. Component/Group (父节点/按钮) */
+  /* 首先确保箭头可见 (通常是第一个 SVG) */
+  button.sidebar-item svg {
+    display: block !important;
+    color: #00754A !important; /* primary-color: 默认使用品牌色 */
     fill: #00754A !important;
   }
+  
+  /* 
+   * 8. 侧边栏选中及 Hover 状态精细化控制
+   * 规则：
+   * - 选中态 (Selected): 背景 #00754A (normal), 文字 #FFFFFF, 图标 #FFFFFF
+   * - 选中并 Hover (Selected + Hover): 背景 #006A44 (click), 文字 #FFFFFF, 图标 #FFFFFF
+   * - 普通 Hover (Not Selected): 背景 #E6F7F1 (light), 文字 #00754A, 图标 #00754A
+   */
 
-  /* 6. 顶部品牌区域 */
-  .sidebar-header img {
-    max-height: 32px !important; /* 调整 Logo 大小 */
+  /* 选中态 (data-selected="true" 或 .selected) */
+  #storybook-explorer-tree .sidebar-item[data-selected="true"],
+  #storybook-explorer-tree .sidebar-item.selected {
+    background-color: #00754A !important; /* primary-color-normal */
+    color: #FFFFFF !important;
+  }
+  
+  /* 选中态下的图标颜色 (针对父级菜单箭头) */
+  #storybook-explorer-tree button.sidebar-item[data-selected="true"] svg,
+  #storybook-explorer-tree button.sidebar-item.selected svg {
+    color: #FFFFFF !important;
+    fill: #FFFFFF !important;
   }
 
-  /* 7. 侧边栏搜索框样式覆盖 */
-  /* 仅修改颜色，保留 Storybook 原生布局 */
-  #storybook-explorer-searchfield {
-    border: 1px solid #DCDCDC !important; /* gray-4 */
-    background: #FFFFFF !important; /* white */
-    color: #333333 !important; /* text color */
-    border-radius: 4px !important;
+  /* 选中态 Hover (Selected + Hover) */
+  #storybook-explorer-tree .sidebar-item[data-selected="true"]:hover,
+  #storybook-explorer-tree .sidebar-item.selected:hover {
+    background-color: #006A44 !important; /* primary-color-click */
+    color: #FFFFFF !important;
+  }
+  
+  /* 强制确保选中态 Hover 下的所有子元素（包括文字）也保持白色 */
+  #storybook-explorer-tree .sidebar-item[data-selected="true"]:hover *,
+  #storybook-explorer-tree .sidebar-item.selected:hover * {
+    color: #FFFFFF !important;
   }
 
-  /* 搜索框聚焦状态 */
-  #storybook-explorer-searchfield:focus {
-    border-color: #00754A !important; /* primary-color */
-    box-shadow: 0 0 0 1px #00754A !important;
-    outline: none !important;
+  /* 选中态 Hover 下的图标颜色 (保持白色) */
+  #storybook-explorer-tree button.sidebar-item[data-selected="true"]:hover svg,
+  #storybook-explorer-tree button.sidebar-item.selected:hover svg {
+    color: #FFFFFF !important;
+    fill: #FFFFFF !important;
   }
 </style>
