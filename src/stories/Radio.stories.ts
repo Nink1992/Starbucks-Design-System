@@ -6,6 +6,13 @@ const meta = {
   title: '数据录入/单选框 Radio',
   component: TraeRadio,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: '<span style="font-size: 14px; color: #666;">Radio 组件允许用户在一组互斥的选项中选择其中一个。它通常用于表单提交、设置偏好或切换特定视图。</span>',
+      },
+    },
+  },
   argTypes: {
     disabled: { control: 'boolean' },
     error: { control: 'boolean' },
