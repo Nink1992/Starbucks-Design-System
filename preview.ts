@@ -6,6 +6,11 @@ import theme from './theme';
 
 const preview: Preview = {
   parameters: {
+    options: {
+      storySort: {
+        order: ['通用', '数据录入', '*'],
+      },
+    },
     docs: {
       theme: theme,
     },
