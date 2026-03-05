@@ -5,6 +5,13 @@ const meta = {
   title: '数据录入/开关 Switch',
   component: TraeSwitch,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: '<span style="font-size: 14px; color: #666;">开关用于在两种状态（开启/关闭）之间进行切换。</span>',
+      },
+    },
+  },
   argTypes: {
     modelValue: { control: 'boolean' },
     disabled: { control: 'boolean' },
