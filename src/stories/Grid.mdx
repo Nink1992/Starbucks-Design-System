@@ -1,0 +1,581 @@
+import { Meta } from '@storybook/blocks';
+import React, { useState, useRef } from 'react';
+
+<Meta title="通用/栅格 Grid" />
+
+<style>
+  {`
+    .section-desc {
+      color: #666666 !important;
+      font-size: 14px !important;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    
+    .grid-section {
+      margin-bottom: 48px;
+    }
+    
+    .grid-base-box {
+      background: #F6F9F8;
+      border-radius: 8px;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .grid-base-pattern {
+      width: 100%;
+      height: 300px;
+      background-color: #ffffff;
+      background-image: 
+        linear-gradient(rgba(0, 117, 74, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 117, 74, 0.2) 1px, transparent 1px);
+      background-size: 20px 20px; /* Represents 8px scale */
+      border: 1px solid #00754A;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+    
+    .grid-base-hover-cell {
+      width: 20px; /* 1 grid unit */
+      height: 20px; /* 1 grid unit */
+      background: rgba(0, 98, 65, 0.8);
+      position: absolute;
+      pointer-events: none;
+    }
+    
+    .grid-base-label-top {
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #00754A;
+      font-size: 14px;
+      white-space: nowrap;
+      font-family: monospace;
+    }
+    
+    .grid-base-label-right {
+      position: absolute;
+      right: -32px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00754A;
+      font-size: 14px;
+      font-family: monospace;
+    }
+
+    .grid-base-label-top::before {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #00754A;
+    }
+    
+    .grid-base-label-top::after,
+    .grid-base-label-top-mark {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      width: 1px;
+      height: 8px;
+      background: #00754A;
+    }
+    .grid-base-label-top-mark { left: 0; }
+    .grid-base-label-top::after { right: 0; }
+    
+    .grid-base-label-right::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 0;
+      height: 100%;
+      width: 1px;
+      background: #00754A;
+    }
+    
+    .grid-base-label-right::after,
+    .grid-base-label-right-top-mark {
+      content: '';
+      position: absolute;
+      left: -8px;
+      height: 1px;
+      width: 8px;
+      background: #00754A;
+    }
+    .grid-base-label-right-top-mark { top: 0; }
+    .grid-base-label-right::after { bottom: 0; }
+
+    .grid-compose-box {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .grid-compose-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #E2ECE8;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #F6F9F8;
+    }
+
+    .grid-compose-row {
+      display: flex;
+      border-bottom: 1px solid #E2ECE8;
+    }
+
+    .grid-compose-row:last-child {
+      border-bottom: none;
+    }
+
+    .grid-compose-title-col {
+      width: 200px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      font-size: 12px;
+      color: #292F2E;
+      border-right: 1px solid #E2ECE8;
+    }
+
+    .grid-compose-desc-col {
+      flex: 1;
+      padding: 16px;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.6;
+      display: flex;
+      align-items: center;
+    }
+
+    .grid-visual-demo {
+      background: #F6F9F8;
+      border-radius: 8px;
+      padding: 40px;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      height: 300px;
+    }
+
+    .visual-container-box {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      position: relative;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      border: 1px dashed #00754A;
+      padding: 1px; /* 留出一点空间给虚线框 */
+      transition: border-color 0.3s ease;
+    }
+    
+    .visual-container-box:hover {
+      border-color: #004D30;
+    }
+
+    .visual-margin-box {
+      width: 48px;
+      background: #FEDEDF; /* 红色边距 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .visual-margin-box:hover {
+      background: #FCD0D2;
+    }
+
+    .visual-margin-box:hover .visual-label-margin {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .visual-columns-box {
+      flex: 1;
+      display: flex;
+      padding: 0 8px;
+      position: relative;
+    }
+
+    .visual-column-item {
+      flex: 1;
+      background: #FFEFE1; /* 橙色槽 */
+      position: relative;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .visual-column-item:hover {
+      background: #FFDCC0;
+    }
+
+    .visual-column-item:hover .visual-label-column {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .visual-gutter-item {
+      width: 8px;
+      position: relative;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+
+    .visual-gutter-item:hover {
+      background: rgba(0, 117, 74, 0.15);
+    }
+
+    .visual-gutter-item:hover .visual-label-gutter {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .visual-label {
+      position: absolute;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: monospace;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+
+    .visual-label-margin {
+      bottom: -32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      color: #E2484D;
+    }
+
+    .visual-label-column {
+      bottom: -32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      color: #E88321;
+    }
+
+    .visual-label-gutter {
+      bottom: -32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      color: #00754A;
+    }
+
+    .visual-label-container {
+      top: -32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #00754A;
+      opacity: 1 !important;
+    }
+
+    .visual-arrow-line {
+      width: 100%;
+      height: 1px;
+      background: #00754A;
+      position: absolute;
+      bottom: -10px;
+    }
+
+    .grid-split-demo {
+      background: #F6F9F8;
+      border-radius: 8px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .grid-split-row {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      height: 48px;
+    }
+
+    .grid-split-col {
+      background: rgba(0, 117, 74, 0.05);
+      border: 1px solid rgba(0, 117, 74, 0.2);
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #00754A;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .grid-split-col:hover {
+      background: rgba(0, 117, 74, 0.1);
+      border-color: #00754A;
+      box-shadow: 0 2px 8px rgba(0, 117, 74, 0.15);
+      transform: translateY(-1px);
+    }
+  `}
+</style>
+
+export const GridBaseInteractive = () => {
+  const [hoverPos, setHoverPos] = useState(null);
+  const containerRef = useRef(null);
+
+  // Set default center position after component mounts and ref is available
+  React.useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const col = Math.floor(centerX / 20);
+      const row = Math.floor(centerY / 20);
+      
+      setHoverPos({ x: col * 20, y: row * 20 });
+    }
+  }, []);
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // snap to 20px grid
+    const col = Math.floor(x / 20);
+    const row = Math.floor(y / 20);
+    
+    setHoverPos({ x: col * 20, y: row * 20 });
+  };
+
+  const handleMouseLeave = () => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const col = Math.floor(centerX / 20);
+      const row = Math.floor(centerY / 20);
+      
+      setHoverPos({ x: col * 20, y: row * 20 });
+    }
+  };
+
+  return (
+    <div 
+      className="grid-base-pattern" 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {hoverPos && (
+        <div 
+          className="grid-base-hover-cell"
+          style={{ left: hoverPos.x, top: hoverPos.y }}
+        >
+          <div className="grid-base-label-top">
+            <div className="grid-base-label-top-mark"></div>
+            8px
+          </div>
+          <div className="grid-base-label-right">
+            <div className="grid-base-label-right-top-mark"></div>
+            8px
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+# 栅格 Grid
+
+<div className="section-desc">
+  栅格是以规则的网格阵列来指导和规范网页中的版面布局以及信息分布，提高界面内布局的一致性，节约成本。
+</div>
+
+
+## 网格基数
+
+<div className="section-desc">
+  网格基数是栅格系统中的基本网格单位。栅格化之前先定义网格基数尤其重要，一方面规范设计，指导版式设计与内容布局，辅助规范页面元素对齐和间距设定；另一方面节省设计开发沟通的时间。目前栅格系统中以 8 点为网格基数，粒度大小合适，且能够匹配多数主流屏幕。
+</div>
+
+<div className="grid-section">
+  <div className="grid-base-box">
+    <GridBaseInteractive />
+  </div>
+</div>
+
+## 栅格构成
+
+<div className="section-desc">
+  栅格由容器（Container）、列（column）、槽（gutter）、边距（margin）组成。
+</div>
+
+<div className="grid-section">
+  <div className="grid-compose-box">
+    <div className="grid-compose-table">
+      <div className="grid-compose-row">
+        <div className="grid-compose-title-col">容器（Container）</div>
+        <div className="grid-compose-desc-col">指的是我们需要布局信息的版面区域，一般为整个屏幕，或排除固定浮动区域的其他部分。栅格系统的其他三大元素都要基于该容器的大小去计算。</div>
+      </div>
+      <div className="grid-compose-row">
+        <div className="grid-compose-title-col">边距（Margin）</div>
+        <div className="grid-compose-desc-col">边距是内容和屏幕边缘之间的间隔。通常为固定宽度，用来定义在所有尺寸屏幕下最小的呼吸空间。侧边距默认值为 16px。（也可根据实际情况确定取值，建议使用 8 的倍数）</div>
+      </div>
+      <div className="grid-compose-row">
+        <div className="grid-compose-title-col">列（Column）</div>
+        <div className="grid-compose-desc-col">一般指的是纵向分割空间中较宽松的部分，常用与放置主要信息，其边界对应着模块化信息 Box 的外边框。在设计软件中一般以带有颜色的矩形的形式展示，很容易分辨。</div>
+      </div>
+      <div className="grid-compose-row">
+        <div className="grid-compose-title-col">槽（Gutter）</div>
+        <div className="grid-compose-desc-col">槽是列之间的间隔。槽用来分隔内容。通常槽的宽度为固定值。默认为 8px。</div>
+      </div>
+    </div>
+
+    {/* 视觉演示区域 */}
+    <div className="grid-visual-demo">
+      <div className="visual-container-box">
+        <div className="visual-label visual-label-container">Container</div>
+        
+        <div className="visual-margin-box">
+          <div className="visual-label visual-label-margin">Margin</div>
+        </div>
+        
+        <div className="visual-columns-box">
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+          <div className="visual-gutter-item"><div className="visual-label visual-label-gutter">Gutter</div></div>
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+          <div className="visual-gutter-item"><div className="visual-label visual-label-gutter">Gutter</div></div>
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+          <div className="visual-gutter-item"><div className="visual-label visual-label-gutter">Gutter</div></div>
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+          <div className="visual-gutter-item"><div className="visual-label visual-label-gutter">Gutter</div></div>
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+          <div className="visual-gutter-item"><div className="visual-label visual-label-gutter">Gutter</div></div>
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+          <div className="visual-gutter-item"><div className="visual-label visual-label-gutter">Gutter</div></div>
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+          <div className="visual-gutter-item"><div className="visual-label visual-label-gutter">Gutter</div></div>
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+          <div className="visual-gutter-item"><div className="visual-label visual-label-gutter">Gutter</div></div>
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+          <div className="visual-gutter-item"><div className="visual-label visual-label-gutter">Gutter</div></div>
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+          <div className="visual-gutter-item"><div className="visual-label visual-label-gutter">Gutter</div></div>
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+          <div className="visual-gutter-item"><div className="visual-label visual-label-gutter">Gutter</div></div>
+          <div className="visual-column-item"><div className="visual-label visual-label-column">Column</div></div>
+        </div>
+
+        <div className="visual-margin-box">
+          <div className="visual-label visual-label-margin">Margin</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+## 栅格分栏
+
+
+### 均等分栏
+<div className="section-desc">
+  均等分栏建议数量为二、三、四、六、八栏。
+</div>
+
+<div className="grid-section">
+  <div className="grid-split-demo">
+    <div className="grid-split-row">
+      <div className="grid-split-col" style={{ flex: 24 }}>占 24 格</div>
+    </div>
+    <div className="grid-split-row">
+      <div className="grid-split-col" style={{ flex: 12 }}>占 12 格</div>
+      <div className="grid-split-col" style={{ flex: 12 }}>占 12 格</div>
+    </div>
+    <div className="grid-split-row">
+      <div className="grid-split-col" style={{ flex: 8 }}>占 8 格</div>
+      <div className="grid-split-col" style={{ flex: 8 }}>占 8 格</div>
+      <div className="grid-split-col" style={{ flex: 8 }}>占 8 格</div>
+    </div>
+    <div className="grid-split-row">
+      <div className="grid-split-col" style={{ flex: 6 }}>占 6 格</div>
+      <div className="grid-split-col" style={{ flex: 6 }}>占 6 格</div>
+      <div className="grid-split-col" style={{ flex: 6 }}>占 6 格</div>
+      <div className="grid-split-col" style={{ flex: 6 }}>占 6 格</div>
+    </div>
+    <div className="grid-split-row">
+      <div className="grid-split-col" style={{ flex: 4 }}>占 4 格</div>
+      <div className="grid-split-col" style={{ flex: 4 }}>占 4 格</div>
+      <div className="grid-split-col" style={{ flex: 4 }}>占 4 格</div>
+      <div className="grid-split-col" style={{ flex: 4 }}>占 4 格</div>
+      <div className="grid-split-col" style={{ flex: 4 }}>占 4 格</div>
+      <div className="grid-split-col" style={{ flex: 4 }}>占 4 格</div>
+    </div>
+  </div>
+</div>
+
+### 自定义两栏示例
+
+<div className="section-desc">
+  常用比例 1:1（均分）、2:8、3:7、4:6，就近对应 24 栅格，如下图。 允许自定义比例，比如 6 格 : 18 格（即 1 : 3）、 8 格 : 16 格（即 1 : 2）等。
+</div>
+
+<div className="grid-section">
+  <div className="grid-split-demo">
+    <div className="grid-split-row">
+      <div className="grid-split-col" style={{ flex: 5 }}>占 5 格</div>
+      <div className="grid-split-col" style={{ flex: 19 }}>占 19 格</div>
+    </div>
+    <div className="grid-split-row">
+      <div className="grid-split-col" style={{ flex: 7 }}>占 7 格</div>
+      <div className="grid-split-col" style={{ flex: 17 }}>占 17 格</div>
+    </div>
+    <div className="grid-split-row">
+      <div className="grid-split-col" style={{ flex: 10 }}>占 10 格</div>
+      <div className="grid-split-col" style={{ flex: 14 }}>占 14 格</div>
+    </div>
+  </div>
+</div>
+
+### 自定义三栏示例
+
+<div className="section-desc">
+  比例可参考 1:1:1（均分）、1:1:2 、1:1:4、1:2:3 允许自定义比例。 按比例分 n 栏，同理，不一一列举。
+</div>
+
+<div className="grid-section">
+  <div className="grid-split-demo">
+    <div className="grid-split-row">
+      <div className="grid-split-col" style={{ flex: 6 }}>占 6 格</div>
+      <div className="grid-split-col" style={{ flex: 6 }}>占 6 格</div>
+      <div className="grid-split-col" style={{ flex: 12 }}>占 12 格</div>
+    </div>
+    <div className="grid-split-row">
+      <div className="grid-split-col" style={{ flex: 4 }}>占 4 格</div>
+      <div className="grid-split-col" style={{ flex: 4 }}>占 4 格</div>
+      <div className="grid-split-col" style={{ flex: 16 }}>占 16 格</div>
+    </div>
+    <div className="grid-split-row">
+      <div className="grid-split-col" style={{ flex: 4 }}>占 4 格</div>
+      <div className="grid-split-col" style={{ flex: 8 }}>占 8 格</div>
+      <div className="grid-split-col" style={{ flex: 12 }}>占 12 格</div>
+    </div>
+  </div>
+</div>
