@@ -1,0 +1,494 @@
+@import '../src/styles/variables.css';
+
+.tabs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs-header {
+  position: relative;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.tabs-nav-wrap {
+  overflow: hidden;
+  overflow-x: auto; /* Allow horizontal scroll */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+  position: relative;
+  flex: 1;
+  display: flex;
+}
+
+.scroll-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  background-color: var(--white);
+  z-index: 2;
+  flex-shrink: 0;
+  transition: all 0.2s;
+
+  &:hover {
+    color: var(--primary-color);
+    background-color: var(--gray-2);
+  }
+}
+
+.scroll-btn-left {
+  box-shadow: 10px 0px 20px 0px rgba(0, 0, 0, 0.05);
+}
+
+.scroll-btn-right {
+  box-shadow: -10px 0px 20px 0px rgba(0, 0, 0, 0.05);
+}
+
+.tabs-nav-scroll {
+  /* overflow: hidden; Removed to allow content to dictate width inside scrollable wrap */
+  display: flex; /* Ensure tabs line up */
+  white-space: nowrap;
+  width: max-content; /* Allow full width */
+  min-width: 100%;
+}
+
+.tabs-nav {
+  display: flex;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.tabs-add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Fixed width from Figma */
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  flex-shrink: 0; /* Prevent shrinking */
+  
+  /* Remove old button style */
+  margin-left: 0;
+  border: none;
+  border-radius: 0;
+
+  &:hover {
+    color: var(--primary-color);
+    background-color: var(--gray-2); /* Slight background on hover */
+  }
+}
+
+/* Tab Item Base Style */
+.tabs-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+  user-select: none;
+  box-sizing: border-box;
+
+  &:hover:not(.is-disabled) {
+    /* Remove color change on hover */
+    /* color: var(--primary-color); */
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    color: var(--text-disabled);
+  }
+}
+
+.tab-icon {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  /* Ensure icon color inherits from parent (tab) */
+  color: inherit;
+  
+  /* If using SVGs directly, ensure they use currentColor */
+  svg {
+    fill: currentColor;
+    /* Or stroke depending on the icon style, Figma uses fill usually for these icons */
+  }
+}
+
+.tab-close {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  color: inherit; /* Inherit color from tab */
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.06); /* Subtle hover background */
+    color: var(--text-primary);
+  }
+  
+  svg {
+    display: block;
+  }
+}
+
+/* --- Theme: Normal --- */
+.type-normal {
+  .tabs-header {
+    border-bottom: 1px solid var(--gray-3); /* #E7E7E7 */
+    margin-bottom: 16px;
+    background: var(--white);
+    
+    /* Ensure tabs are aligned to flex-start and fill height */
+    align-items: stretch;
+  }
+
+  .tabs-nav {
+    /* Remove default gap if any, rely on padding */
+    gap: 0;
+  }
+  
+  /* Specific style for add button in Normal mode */
+  .tabs-add-btn {
+    border-left: 1px solid var(--gray-3); /* #E7E7E7 */
+    height: auto; /* Stretch to fill container */
+  }
+
+  .tabs-tab {
+    padding: 8px; /* From Figma: padding 8px on item wrapper */
+    margin-right: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary); /* rgba(0, 0, 0, 0.6) */
+    height: 48px; /* Fixed height from Figma */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+
+    /* Wrapper for content to handle background, padding and border radius */
+    .tab-content {
+       padding: 5px 8px; /* From Figma: padding 5px 8px on content */
+       border-radius: 4px; /* Updated to 4px */
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       gap: 8px; /* From Figma: gap 8px */
+       transition: background-color 0.2s, color 0.3s;
+
+       /* Override global margins since we use gap here */
+       .tab-icon { margin-right: 0; }
+       .tab-close { margin-left: 0; }
+    }
+    
+    .tab-label {
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Active Indicator Line */
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -1px; /* Overlap the bottom border */
+      width: 100%;
+      height: 3px;
+      background-color: transparent;
+      transition: background-color 0.3s;
+      z-index: 1;
+    }
+
+    &:hover:not(.is-disabled) {
+      /* Base hover style - overridden below for specific states */
+    }
+    
+    /* Ensure hovered active tab has white background */
+    &.is-active:hover:not(.is-disabled) {
+      .tab-content {
+        background-color: var(--white); /* #FFFFFF */
+      }
+    }
+
+    /* Hover on inactive tab */
+    &:not(.is-active):hover:not(.is-disabled) {
+      .tab-content {
+        background-color: var(--gray-1); /* #F3F3F3 */
+        color: var(--text-secondary); /* rgba(0, 0, 0, 0.6) */
+      }
+    }
+    
+    &:not(.is-active):active:not(.is-disabled) {
+      .tab-content {
+        background-color: var(--gray-3); /* #E7E7E7 */
+        color: var(--text-secondary); /* rgba(0, 0, 0, 0.6) */
+      }
+    }
+
+    &.is-active {
+      color: var(--primary-color); /* #00754A */
+      font-weight: 400;
+
+      .tab-content {
+         background-color: transparent; /* Selected state doesn't have gray background in Figma */
+      }
+
+      &::after {
+        background-color: var(--primary-color); /* #00754A */
+      }
+    }
+    
+    &.is-disabled {
+      color: var(--text-disabled); /* rgba(0, 0, 0, 0.26) */
+      
+      .tab-content {
+        background-color: transparent;
+      }
+    }
+  }
+
+  /* Sizes for Normal Type */
+  &.size-large .tabs-tab {
+    font-size: 16px;
+    height: 56px; 
+    /* Assuming scaling up padding accordingly if not specified */
+    padding: 12px;
+    .tab-content {
+      padding: 6px 12px;
+    }
+  }
+
+  &.size-medium .tabs-tab {
+    font-size: 14px;
+    height: 48px;
+    padding: 8px;
+    .tab-content {
+      padding: 5px 8px;
+    }
+  }
+}
+
+/* --- Theme: Card --- */
+.type-card {
+  .tabs-header {
+    margin-bottom: 16px;
+    background-color: var(--gray-1); /* #F3F3F3 */
+    border-radius: 0;
+    padding: 0;
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid var(--gray-3); /* #E7E7E7 */
+    align-items: center; /* Vertically center all header items */
+  }
+
+  /* Specific styles for scroll buttons in Card mode */
+  .scroll-btn {
+    height: 48px; /* Match add button height */
+    width: 40px;
+    background-color: var(--gray-1); /* Match header background */
+    border-radius: 0;
+    
+    /* Remove separator line as shadow handles visual separation */
+    border-left: none;
+    
+    &::before {
+      display: none;
+    }
+
+    &:hover {
+      background-color: var(--gray-2);
+    }
+  }
+  
+  /* Restore shadow for scroll buttons in Card mode */
+  .scroll-btn-left {
+    box-shadow: 10px 0px 20px 0px rgba(0, 0, 0, 0.05);
+  }
+
+  .scroll-btn-right {
+    box-shadow: -10px 0px 20px 0px rgba(0, 0, 0, 0.05);
+  }
+
+  .tabs-nav-wrap {
+    width: 100%;
+  }
+
+  .tabs-nav {
+    gap: 0;
+    width: 100%;
+  }
+
+  .tabs-tab {
+    padding: 13px 16px; /* layout_VX44G1 padding */
+    border-radius: 0;
+    color: var(--text-secondary); /* rgba(0, 0, 0, 0.6) */
+    background-color: transparent;
+    transition: all 0.3s;
+    border-right: 1px solid var(--gray-3); /* #E7E7E7 */
+    
+    /* Remove last item border if needed, or keep as separator */
+    &:last-child {
+      border-right: none;
+    }
+    
+    /* Hover State (Inactive) */
+    &:hover:not(.is-disabled):not(.is-active) {
+      background-color: var(--gray-2); /* #EEEEEE */
+      color: var(--text-secondary);
+    }
+    
+    /* Active State (Clicking/Pressing down) */
+    &:active:not(.is-disabled):not(.is-active) {
+      background-color: var(--gray-4); /* #DCDCDC - using gray-4 as a slightly darker shade for active press */
+    }
+
+    &.is-active {
+      background-color: var(--white); /* #FFFFFF */
+      color: var(--primary-color); /* #00754A */
+      box-shadow: none;
+      font-weight: 400; /* Body/Medium */
+    }
+    
+    &.is-disabled {
+      color: var(--text-disabled); /* rgba(0, 0, 0, 0.26) */
+      background-color: var(--gray-1); /* Keep background consistent */
+      cursor: not-allowed;
+    }
+  }
+
+  /* Sizes for Card Type */
+  &.size-large .tabs-tab {
+    font-size: 16px;
+    padding: 16px 20px;
+  }
+
+  &.size-medium .tabs-tab {
+    font-size: 14px;
+    padding: 13px 16px;
+  }
+
+  /* Specific style for add button in Card mode */
+  .tabs-add-btn {
+    border-left: 1px solid var(--gray-3); /* #E7E7E7 */
+    height: 48px; /* Fixed height from Figma */
+    width: 40px;
+    align-self: center; /* Vertically center the button */
+    background-color: transparent;
+    border: none; /* Remove default border */
+    
+    /* Create the separator line using pseudo-element */
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0; /* Start from top */
+      bottom: 0; /* Extend to bottom */
+      width: 1px;
+      height: auto; /* Allow height to stretch */
+      background-color: var(--gray-3); /* #E7E7E7 */
+    }
+    
+    &:hover {
+      background-color: var(--gray-2); /* Hover state */
+      border-radius: 0; /* No radius in card mode full height hover usually, or keep if design requires */
+    }
+  }
+
+  /* Support for Icons in Card Type */
+  .tab-icon {
+    margin-right: 8px;
+    color: inherit; /* Inherit color from tab text */
+    display: flex;
+    align-items: center;
+  }
+  
+  .tab-content {
+    display: flex;
+    flex-direction: row; /* Ensure row direction */
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Prevent wrapping */
+  }
+  
+  .tabs-tab:hover:not(.is-disabled) .tab-icon,
+  .tabs-tab.is-active .tab-icon {
+    color: var(--primary-color); /* #00754A */
+  }
+}
+
+/* --- Placement: Left --- */
+.placement-left {
+  flex-direction: row;
+
+  .tabs-header {
+    flex-direction: column;
+    margin-right: 16px;
+    margin-bottom: 0;
+    border-bottom: none;
+    border-right: 1px solid var(--gray-4); /* For normal type */
+    height: 100%;
+    align-items: flex-start;
+  }
+
+  .tabs-nav-wrap {
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .tabs-nav-scroll {
+    height: 100%;
+    width: auto;
+  }
+
+  .tabs-nav {
+    flex-direction: column;
+  }
+
+  .tabs-tab {
+    justify-content: flex-start;
+    margin-right: 0;
+    margin-bottom: 16px;
+    text-align: left;
+    
+    &::after {
+      left: auto;
+      right: -1px;
+      top: 0;
+      bottom: auto;
+      width: 2px;
+      height: 100%;
+    }
+  }
+
+  /* Card Type on Left */
+  &.type-card {
+    .tabs-header {
+      border-right: none;
+      background-color: var(--gray-2);
+      padding: 4px;
+      width: auto;
+    }
+
+    .tabs-tab {
+      margin-bottom: 4px;
+      width: 100%; /* Fill container */
+      justify-content: center; /* Or flex-start based on design preference */
+    }
+  }
+}
