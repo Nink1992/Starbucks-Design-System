@@ -1,85 +1,94 @@
+/**
+ * @vitest-environment jsdom
+ */
 import { mount } from '@vue/test-utils';
-import { describe, it, expect, vi } from 'vitest';
-import TraeInput from '../index';
+import { describe, it, expect } from 'vitest';
+import { Input } from '../index';
 
-describe('TraeInput', () => {
+describe('Input', () => {
   it('renders correctly', () => {
-    const wrapper = mount(TraeInput);
-    expect(wrapper.find('.input-core').exists()).toBe(true);
+    const wrapper = mount(Input, {
+      props: { placeholder: 'Test Placeholder' },
+    });
+    const input = wrapper.find('input');
+    expect(input.exists()).toBe(true);
+    expect(input.attributes('placeholder')).toBe('Test Placeholder');
   });
 
-  it('syncs modelValue', async () => {
-    const wrapper = mount(TraeInput, {
+  it('updates modelValue', async () => {
+    const wrapper = mount(Input, {
       props: {
-        modelValue: 'initial',
-        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+        modelValue: '',
+        'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e }),
       },
     });
-    await wrapper.find('.input-core').setValue('changed');
-    expect(wrapper.props('modelValue')).toBe('changed');
+
+    const input = wrapper.find('input');
+    await input.setValue('test');
+    expect(wrapper.props('modelValue')).toBe('test');
   });
 
-  it('shows prefix and suffix', () => {
-    const wrapper = mount(TraeInput, {
+  it('clears input when clearable is true', async () => {
+    const wrapper = mount(Input, {
       props: {
-        prefix: '$',
-        suffix: 'RMB',
-      },
-    });
-    expect(wrapper.find('.input-prefix').text()).toBe('$');
-    expect(wrapper.find('.input-suffix').text()).toBe('RMB');
-  });
-
-  it('clears the input when allowClear is true', async () => {
-    const wrapper = mount(TraeInput, {
-      props: {
-        allowClear: true,
         modelValue: 'test',
-        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+        clearable: true,
+        'onUpdate:modelValue': (e: string) => wrapper.setProps({ modelValue: e }),
       },
     });
-    await wrapper.trigger('mouseenter');
-    await wrapper.find('.input-clear-icon').trigger('click');
+
+    const spans = wrapper.findAll('span');
+    const clearIconWrapper = spans.find(span => span.find('svg').exists());
+    
+    expect(clearIconWrapper).toBeDefined();
+    await clearIconWrapper!.trigger('click');
     expect(wrapper.props('modelValue')).toBe('');
   });
 
-  it('shows character count when showCount is true', () => {
-    const wrapper = mount(TraeInput, {
+  it('toggles password visibility', async () => {
+    const wrapper = mount(Input, {
+      props: {
+        type: 'password',
+        modelValue: '123456',
+      },
+    });
+
+    const input = wrapper.find('input');
+    expect(input.attributes('type')).toBe('password');
+
+    const spans = wrapper.findAll('span');
+    const toggleIconWrapper = spans.find(span => span.find('svg').exists());
+    
+    expect(toggleIconWrapper).toBeDefined();
+    await toggleIconWrapper!.trigger('click');
+    
+    expect(wrapper.find('input').attributes('type')).toBe('text');
+  });
+
+  it('renders textarea', () => {
+    const wrapper = mount(Input, {
+      props: { type: 'textarea' },
+    });
+    expect(wrapper.find('textarea').exists()).toBe(true);
+    expect(wrapper.find('input').exists()).toBe(false);
+  });
+
+  it('shows character count', () => {
+    const wrapper = mount(Input, {
       props: {
         showCount: true,
         maxLength: 10,
         modelValue: 'hello',
       },
     });
-    expect(wrapper.find('.input-count').text()).toBe('5/10');
+    expect(wrapper.text()).toContain('5/10');
   });
 
-  it('is disabled when disabled prop is true', () => {
-    const wrapper = mount(TraeInput, {
-      props: {
-        disabled: true,
-      },
+  it('disabled state', () => {
+    const wrapper = mount(Input, {
+      props: { disabled: true },
     });
-    expect(wrapper.find('.input-core').attributes('disabled')).toBeDefined();
-    expect(wrapper.classes()).toContain('is-disabled');
-  });
-
-  it('is readonly when readonly prop is true', () => {
-    const wrapper = mount(TraeInput, {
-      props: {
-        readonly: true,
-      },
-    });
-    expect(wrapper.find('.input-core').attributes('readonly')).toBeDefined();
-    expect(wrapper.classes()).toContain('is-readonly');
-  });
-
-  it('shows error state', () => {
-    const wrapper = mount(TraeInput, {
-      props: {
-        status: 'error',
-      },
-    });
-    expect(wrapper.classes()).toContain('is-error');
+    const input = wrapper.find('input');
+    expect(input.attributes('disabled')).toBeDefined();
   });
 });

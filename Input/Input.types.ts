@@ -1,54 +1,32 @@
-import type { PropType } from 'vue';
-
 export type InputSize = 'large' | 'medium' | 'small';
-export type InputStatus = 'normal' | 'error';
+export type InputStatus = 'default' | 'error' | 'warning';
+export type InputType = 'text' | 'password' | 'textarea';
 
-export const inputProps = {
-  modelValue: {
-    type: String,
-    default: '',
-  },
-  type: {
-    type: String,
-    default: 'text',
-  },
-  size: {
-    type: String as PropType<InputSize>,
-    default: 'medium',
-  },
-  placeholder: {
-    type: String,
-    default: '请输入内容',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  readonly: {
-    type: Boolean,
-    default: false,
-  },
-  allowClear: {
-    type: Boolean,
-    default: false,
-  },
-  showCount: {
-    type: Boolean,
-    default: false,
-  },
-  maxLength: {
-    type: Number,
-  },
-  prefix: {
-    type: String,
-  },
-  suffix: {
-    type: String,
-  },
-  status: {
-    type: String as PropType<InputStatus>,
-    default: 'normal',
-  },
-} as const;
+export interface InputProps {
+  modelValue?: string | number;
+  type?: InputType;
+  placeholder?: string;
+  size?: InputSize;
+  status?: InputStatus;
+  disabled?: boolean;
+  readonly?: boolean;
+  clearable?: boolean;
+  showCount?: boolean;
+  maxLength?: number;
+  autosize?: boolean | { minRows?: number; maxRows?: number };
+  prefixIcon?: boolean;
+  suffixIcon?: boolean;
+  filled?: boolean;
+  tips?: string;
+  prepend?: string;
+  append?: string;
+}
 
-export const inputEmits = ['update:modelValue', 'input', 'change', 'clear'];
+export interface InputEmits {
+  (e: 'update:modelValue', value: string): void;
+  (e: 'change', value: string): void;
+  (e: 'focus', event: FocusEvent): void;
+  (e: 'blur', event: FocusEvent): void;
+  (e: 'clear'): void;
+  (e: 'input', event: Event): void;
+}

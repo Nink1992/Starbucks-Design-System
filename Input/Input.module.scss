@@ -1,136 +1,351 @@
-.input-wrapper {
+@import '../src/styles/variables.css';
+
+.input-container {
   display: inline-flex;
+  width: 100%;
   align-items: center;
+
+  &.has-prepend {
+    .input-wrapper {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  &.has-append {
+    .input-wrapper {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.input-prepend,
+.input-append {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #EEEEEE;
+  color: var(--text-primary);
+  border: 1px solid var(--gray-4);
+  padding: 0 12px;
+  height: 32px; /* Match medium size by default */
+  font-size: 14px;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.input-prepend {
+  border-right: none;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.input-append {
+  border-left: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.input-wrapper {
   position: relative;
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
   border: 1px solid var(--gray-4);
   border-radius: 4px;
   background-color: var(--white);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
 
-  /* 交互状态：仅在非禁用且非只读时生效 */
-  &:not(.is-disabled):not(.is-readonly):hover {
-    border-color: var(--primary-color-hover);
+  &:hover:not(.is-disabled):not(.is-readonly):not(.is-focused) {
+    border-color: var(--primary-color);
   }
 
-  &:not(.is-disabled):not(.is-readonly).is-focused {
-    border-color: var(--primary-color-hover);
+  &.is-focused {
+    border-color: var(--primary-color);
     box-shadow: 0 0 0 2px var(--primary-color-focus);
+    z-index: 1;
   }
 
   &.is-disabled {
     background-color: var(--gray-1);
-    border-color: var(--gray-4); /* 强制灰色边框 */
+    border-color: var(--gray-4);
     cursor: not-allowed;
 
     .input-core {
       cursor: not-allowed;
       color: var(--text-disabled);
-      background-color: transparent; /* 确保背景透明 */
     }
     
-    /* 禁用状态下不响应 hover */
-    &:hover {
-      border-color: var(--gray-4);
+    .prefix, .suffix-group {
+      color: var(--text-disabled);
     }
   }
 
   &.is-readonly {
-    background-color: var(--gray-1); /* 只读状态通常也是灰色背景 */
-    border-color: var(--gray-4);
     cursor: default;
-
+    
     .input-core {
       cursor: default;
-      color: var(--text-secondary); /* 文字颜色比禁用深一些 */
-    }
-
-    /* 只读状态下不响应 hover */
-    &:hover {
-      border-color: var(--gray-4);
     }
     
-    /* 只读状态可以聚焦，但样式可以区分 */
-    &.is-focused {
-      border-color: var(--gray-4);
-      box-shadow: 0 0 0 2px var(--gray-3); /* 使用灰色光圈 */
-    }
-  }
-
-  &.is-error {
-    border-color: var(--error5-color-normal);
-
     &:hover {
-      border-color: var(--error4-color-hover);
+      border-color: var(--gray-4);
+    }
+  }
+
+  /* Status */
+  &.status-error {
+    border-color: #D54941;
+
+    &.is-focused {
+      box-shadow: 0 0 0 2px rgba(255, 216, 210, 1);
+    }
+  }
+
+  &.status-warning {
+    border-color: var(--warning-color);
+
+    &.is-focused {
+      box-shadow: 0 0 0 2px var(--warning-color-focus);
+    }
+  }
+
+  /* Filled Variant */
+  &.is-filled {
+    background-color: var(--gray-2);
+    border-color: transparent;
+
+    &:hover:not(.is-disabled):not(.is-focused) {
+      background-color: var(--gray-3);
     }
 
     &.is-focused {
-      border-color: var(--error5-color-normal);
-      box-shadow: 0 0 0 2px var(--error2-color-focus);
+      background-color: var(--white);
+      border-color: var(--primary-color);
     }
   }
 
-  .input-core {
-    border: none;
-    outline: none;
-    background: transparent;
-    width: 100%;
+  /* Sizes */
+  &.size-large {
+    padding: 0 12px;
+    height: 40px;
+    font-size: 16px;
+
+    .input-core { font-size: 16px; }
+  }
+
+  &.size-medium {
+    padding: 0 12px;
+    height: 32px;
+    font-size: 14px;
+
+    .input-core { font-size: 14px; }
+  }
+
+  &.size-small {
+    padding: 0 8px;
+    height: 24px;
     font-size: 12px;
-    color: var(--text-primary);
-    padding: 0 11px;
 
-    &::placeholder {
-      color: var(--text-placeholder);
+    .input-core { font-size: 12px; }
+  }
+  /* Textarea specific */
+  &.is-textarea {
+    height: auto;
+    padding: 0; /* Remove padding from wrapper, handle in layout */
+    align-items: flex-start;
+    flex-direction: column;
+    border: none; /* Remove border from wrapper */
+    background-color: transparent;
+    box-shadow: none;
+
+    /* Reset wrapper hover/focus effects */
+    &:hover, &.is-focused, &.status-error, &.status-warning {
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    .input-content {
+      height: auto;
+      width: 100%;
+      padding: 5px 8px; /* Padding for textarea content */
+      box-sizing: border-box;
+      border: 1px solid var(--gray-4);
+      border-radius: 4px;
+      background-color: var(--white);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    /* Apply states to content */
+    &:hover:not(.is-disabled):not(.is-readonly):not(.is-focused) .input-content {
+      border-color: var(--primary-color);
+    }
+
+    &.is-focused .input-content {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px var(--primary-color-focus);
+      z-index: 1;
+    }
+
+    &.status-error .input-content {
+      border-color: #D54941;
+    }
+    
+    &.status-error.is-focused .input-content {
+      box-shadow: 0 0 0 2px rgba(255, 216, 210, 1);
+    }
+
+    &.status-warning .input-content {
+      border-color: var(--warning-color);
+    }
+
+    &.status-warning.is-focused .input-content {
+      box-shadow: 0 0 0 2px var(--warning-color-focus);
+    }
+
+    &.is-disabled .input-content {
+      background-color: var(--gray-1);
+      border-color: var(--gray-4);
+      cursor: not-allowed;
+    }
+
+    .input-core {
+      height: auto;
+      min-height: 60px;
+      resize: vertical;
+      line-height: 1.5;
+      /* Hide default resizer to avoid double icons, but keep functionality */
+      &::-webkit-resizer {
+        display: none;
+      }
+    }
+
+    .suffix-group {
+      margin: 0;
+      width: 100%;
+      padding: 0; /* Align with input */
+      padding-top: 4px;
+      justify-content: flex-end; /* Right align counter */
+      box-sizing: border-box;
+    }
+    
+    /* Resize handle styling attached to content */
+    .input-content::after {
+      content: '';
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      background-image: url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.5 1.5L6.5 0.5L0.5 6.5L1.5 7.5L7.5 1.5Z' fill='%23999999'/%3E%3Cpath d='M7.5 5.5L6.5 4.5L4.5 6.5L5.5 7.5L7.5 5.5Z' fill='%23999999'/%3E%3C/svg%3E");
+      pointer-events: none; /* Let clicks pass through to textarea resizer */
+      opacity: 0.6;
+      background-repeat: no-repeat; /* Prevent repeat */
+    }
+
+    /* Remove wrapper's pseudo element */
+    &::after {
+      display: none;
     }
   }
+}
 
-  .input-prefix, .input-suffix {
-    display: flex;
-    align-items: center;
+/* Adjust wrapper border radius when in container */
+.input-container {
+  &.has-prepend .input-wrapper.size-large,
+  &.has-prepend .input-wrapper.size-medium,
+  &.has-prepend .input-wrapper.size-small {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &.has-append .input-wrapper.size-large,
+  &.has-append .input-wrapper.size-medium,
+  &.has-append .input-wrapper.size-small {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  /* Adjust addon height based on size */
+  .input-wrapper.size-large ~ .input-append,
+  .input-prepend:has(+ .input-wrapper.size-large) {
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .input-wrapper.size-small ~ .input-append,
+  .input-prepend:has(+ .input-wrapper.size-small) {
+    height: 24px;
+    font-size: 12px;
+  }
+}
+
+.input-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+  align-items: center;
+}
+
+.input-core {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: inherit;
+
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+}
+
+.prefix {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.suffix-group {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.clear-icon,
+.password-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--gray-5);
+  transition: color 0.2s;
+
+  &:hover {
     color: var(--text-secondary);
   }
-
-  .input-prefix {
-    padding-left: 11px;
-  }
-
-  .input-suffix {
-    padding-right: 11px;
-  }
-
-  .input-clear-icon {
-    cursor: pointer;
-    margin-left: 4px;
-    color: var(--text-disabled);
-
-    &:hover {
-      color: var(--text-placeholder);
-    }
-
-    svg {
-      width: 12px;
-      height: 12px;
-    }
-  }
-
-  .input-count {
-    margin-left: 4px;
-    color: var(--text-placeholder);
-    font-size: 12px;
-    white-space: nowrap;
-  }
 }
 
-.input-size-large {
-  height: 40px;
-  .input-core { font-size: 16px; }
+.count {
+  font-size: 12px;
+  color: var(--text-placeholder);
+  user-select: none;
 }
 
-.input-size-medium {
-  height: 32px;
-  .input-core { font-size: 14px; }
-}
-
-.input-size-small {
-  height: 24px;
-  .input-core { font-size: 12px; }
+.tips {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
 }
