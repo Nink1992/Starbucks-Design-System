@@ -1,0 +1,170 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="通用/阴影 Shadows" />
+
+<style>
+  {`
+    .shadow-section {
+      margin-bottom: 48px;
+    }
+
+    .shadow-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .shadow-row {
+      display: flex;
+      align-items: center;
+      background: #F6F9F8;
+      border-radius: 8px;
+      padding: 40px;
+      gap: 29px;
+    }
+
+    .shadow-box {
+      width: 110px;
+      height: 110px;
+      background: #FFFFFF;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    /* Card Shadows */
+    .shadow-1 {
+      box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.12), 
+                  0px 4px 5px 0px rgba(0, 0, 0, 0.08), 
+                  0px 1px 10px 0px rgba(0, 0, 0, 0.05);
+    }
+
+    .shadow-2 {
+      box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.1), 
+                  0px 8px 10px 1px rgba(0, 0, 0, 0.06), 
+                  0px 3px 14px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .shadow-3 {
+      box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.08), 
+                  0px 16px 24px 2px rgba(0, 0, 0, 0.04), 
+                  0px 6px 30px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Focus Shadows */
+    .focus-shadow-default {
+      box-shadow: 0px 0px 0px 2px rgba(184, 233, 214, 1);
+    }
+
+    .focus-shadow-error {
+      box-shadow: 0px 0px 0px 2px rgba(255, 216, 210, 1);
+    }
+
+    .focus-shadow-warning {
+      box-shadow: 0px 0px 0px 2px rgba(255, 217, 194, 1);
+    }
+
+    .shadow-info {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .shadow-title {
+      font-size: 20px;
+      font-weight: 400;
+      color: #000000;
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+
+    .shadow-desc {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.6);
+      line-height: 1.57;
+      margin: 0;
+      white-space: pre-wrap;
+    }
+    
+    .section-desc {
+      color: #666666 !important;
+      font-size: 14px !important;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+  `}
+</style>
+
+# 阴影 Shadows
+
+<div className="section-desc">
+  阴影能够表达界面的层级关系，通过不同的阴影深度来区分组件在 Z 轴上的高度，帮助用户理解页面的空间结构。
+</div>
+
+## 卡片阴影
+
+<div className="section-desc">
+  主要用于区分页面中的不同信息区块，避免内容粘连。
+</div>
+
+<div className="shadow-section">
+  <div className="shadow-grid">
+    <div className="shadow-row">
+      <div className="shadow-box shadow-1"></div>
+      <div className="shadow-info">
+        <h3 className="shadow-title">浅层悬浮</h3>
+        <p className="shadow-desc">Hover 状态下的卡片浮起、列表项拖拽状态<br/>token：shadow-1<br/>box-shadow: 0 1px 10px rgba(0, 0, 0, 5%), 0 4px 5px rgba(0, 0, 0, 8%), 0 2px 4px -1px rgba(0, 0, 0, 12%)</p>
+      </div>
+    </div>
+
+    <div className="shadow-row">
+      <div className="shadow-box shadow-2"></div>
+      <div className="shadow-info">
+        <h3 className="shadow-title">中层浮层</h3>
+        <p className="shadow-desc">使用场景：下拉菜单（Dropdown）、气泡提示（Tooltip）、选择器面板（如 DatePicker 展开面板）<br/>token：shadow-2<br/>box-shadow: 0 3px 14px 2px rgba(0, 0, 0, 5%), 0 8px 10px 1px rgba(0, 0, 0, 6%), 0 5px 5px -3px rgba(0, 0, 0, 10%)</p>
+      </div>
+    </div>
+
+    <div className="shadow-row">
+      <div className="shadow-box shadow-3"></div>
+      <div className="shadow-info">
+        <h3 className="shadow-title">高层模态</h3>
+        <p className="shadow-desc">使用场景：全局弹窗（Modal）、侧边抽屉（Drawer）、全局通知（Notification）<br/>token：shadow-3<br/>box-shadow: 0 6px 30px 5px rgba(0, 0, 0, 5%), 0 16px 24px 2px rgba(0, 0, 0, 4%), 0 8px 10px -5px rgba(0, 0, 0, 8%)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+## 聚焦阴影
+
+<div className="section-desc">
+  主要用于表单录入、数据选择等强交互组件的状态响应。
+</div>
+
+<div className="shadow-section">
+  <div className="shadow-grid">
+    <div className="shadow-row">
+      <div className="shadow-box focus-shadow-default"></div>
+      <div className="shadow-info">
+        <h3 className="shadow-title">聚焦 (Focus)</h3>
+        <p className="shadow-desc">使用场景：用户点击输入框、使用 Tab 键切换到某组件准备输入内容时。<br/>token：Focus shadow-default<br/>box-shadow: 0 0 0 2px #B8E9D6;</p>
+      </div>
+    </div>
+
+    <div className="shadow-row">
+      <div className="shadow-box focus-shadow-error"></div>
+      <div className="shadow-info">
+        <h3 className="shadow-title">报错 (Error)</h3>
+        <p className="shadow-desc">使用场景：表单校验未通过、必填项遗漏时，配合红色边框进行强警示。<br/>token：Focus shadow-error <br/>box-shadow: 0 0 0 2px #FFD8D2;</p>
+      </div>
+    </div>
+
+    <div className="shadow-row">
+      <div className="shadow-box focus-shadow-warning"></div>
+      <div className="shadow-info">
+        <h3 className="shadow-title">警告 (Warning)</h3>
+        <p className="shadow-desc">使用场景：输入格式不建议但未被阻断时的弱警示。<br/>token：Focus shadow-warning<br/>box-shadow: 0 0 0 2px #FFD9C2;</p>
+      </div>
+    </div>
+  </div>
+</div>
