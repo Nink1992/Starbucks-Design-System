@@ -16,7 +16,7 @@
 
 ## 2. 架构规划 (Architecture Planning)
 
-参考 `EmptyState` 的标准化拆分逻辑，建议 Vue 文件结构如下：
+建议 Vue 文件结构如下：
 
 ```text
 Button/
