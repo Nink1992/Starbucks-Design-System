@@ -1,0 +1,213 @@
+@import '../src/styles/variables.css';
+
+.button-group {
+  display: inline-flex;
+  vertical-align: middle;
+
+  &.variant-primary-filled {
+    background-color: var(--gray-3);
+    padding: 2px;
+    gap: 4px;
+    border-radius: 4px;
+  }
+}
+
+.button-group-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  border-radius: 0;
+  margin-left: -1px;
+
+  /* Default border radius for outline and default-filled */
+  &:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    margin-left: 0;
+  }
+
+  &:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  &:focus-visible {
+    z-index: 3;
+    box-shadow: 0 0 0 2px var(--primary-color-focus);
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    /* Removed global opacity setting for button-group-item to handle colors specifically in variants */
+    z-index: 0;
+  }
+}
+
+/* Sizes */
+.size-large .button-group-item {
+  height: 40px;
+  padding: 0 20px;
+  font-size: 16px;
+}
+
+.size-medium .button-group-item {
+  height: 32px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+
+.size-small .button-group-item {
+  height: 24px;
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+/* Variants */
+
+/* Outline */
+.variant-outline .button-group-item {
+  background-color: var(--white);
+  border: 1px solid var(--gray-4);
+  color: var(--text-primary);
+
+  &:hover:not(.is-disabled) {
+    z-index: 1;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  &.is-selected {
+    z-index: 2;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    background-color: var(--white);
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    
+    &:not(.is-selected) {
+      border-color: var(--gray-4);
+      color: var(--text-disabled);
+    }
+
+    &.is-selected {
+      color: var(--text-disabled);
+      border-color: var(--text-disabled);
+      background-color: var(--white);
+    }
+  }
+}
+
+/* Primary Filled */
+.variant-primary-filled .button-group-item {
+  background-color: transparent;
+  border: none;
+  color: var(--text-secondary);
+  border-radius: 4px; /* Override default border radius */
+  margin-left: 0; /* Override default margin */
+
+  /* Override :first-child and :last-child specific radius */
+  &:first-child {
+    border-radius: 4px;
+    margin-left: 0;
+  }
+  
+  &:last-child {
+    border-radius: 4px;
+  }
+
+  &:hover:not(.is-disabled) {
+    z-index: 1;
+    color: var(--text-primary);
+  }
+
+  &.is-selected {
+    z-index: 2;
+    background-color: var(--primary-color);
+    color: var(--white);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+
+    &:hover:not(.is-disabled) {
+      color: var(--gray-1);
+    }
+  }
+
+  /* Disabled States */
+  &.is-disabled {
+    cursor: not-allowed;
+    
+    &:not(.is-selected) {
+      background-color: transparent;
+      color: var(--text-disabled);
+    }
+
+    &.is-selected {
+      background-color: var(--gray-5);
+      color: var(--white);
+      box-shadow: none;
+    }
+  }
+}
+
+/* Default Filled */
+.button-group.variant-default-filled {
+  background-color: var(--gray-2);
+  padding: 2px;
+  gap: 4px;
+  border-radius: 4px;
+}
+
+.variant-default-filled .button-group-item {
+  background-color: transparent;
+  border: none;
+  color: var(--text-secondary);
+  border-radius: 4px;
+  margin-left: 0;
+
+  &:first-child {
+    border-radius: 4px;
+    margin-left: 0;
+  }
+  
+  &:last-child {
+    border-radius: 4px;
+  }
+
+  &:hover:not(.is-disabled) {
+    z-index: 1;
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.5); 
+  }
+
+  &.is-selected {
+    z-index: 2;
+    background-color: var(--white);
+    color: var(--text-primary);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+
+  /* Disabled States */
+  &.is-disabled {
+    cursor: not-allowed;
+    
+    &:not(.is-selected) {
+      background-color: transparent;
+      color: var(--text-disabled);
+    }
+
+    &.is-selected {
+      background-color: var(--white);
+      color: var(--text-disabled);
+      box-shadow: none;
+    }
+  }
+}
