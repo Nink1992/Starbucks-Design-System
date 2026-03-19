@@ -1,4 +1,4 @@
-import{j as a,M as n}from"./index-CA8OYm46.js";import{useMDXComponents as r}from"./index-BI3CByS1.js";import"./iframe-D2ny2V1k.js";import"./index-DS66mu5R.js";import"./index-8_2S3kac.js";import"./index-DrFu-skq.js";function e(l){const s={h1:"h1",h2:"h2",p:"p",...r(),...l.components};return a.jsxs(a.Fragment,{children:[a.jsx(n,{title:"通用/颜色 Colors"}),`
+import{j as a,M as n}from"./index-BiHbUGEa.js";import{useMDXComponents as r}from"./index-BI3CByS1.js";import"./iframe-Bb2YBIgC.js";import"./index-DS66mu5R.js";import"./index-8_2S3kac.js";import"./index-DrFu-skq.js";function e(l){const s={h1:"h1",h2:"h2",p:"p",...r(),...l.components};return a.jsxs(a.Fragment,{children:[a.jsx(n,{title:"通用/颜色 Colors"}),`
 `,a.jsx("style",{children:`
     .color-section {
       margin-bottom: 48px;
