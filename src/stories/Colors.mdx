@@ -1,0 +1,684 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="通用/颜色 Colors" />
+
+<style>
+  {`
+    .color-section {
+      margin-bottom: 48px;
+    }
+    
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+    
+    /* Brand Color Layout */
+    .brand-grid {
+      display: flex;
+      gap: 8px;
+      margin-top: 24px;
+      align-items: stretch;
+      height: 358px;
+    }
+    
+    .brand-main-col {
+      width: 260px;
+      flex-shrink: 0;
+      display: flex;
+    }
+    
+    .brand-sub-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-grow: 1;
+    }
+    
+    .brand-sub-row {
+      display: flex;
+      gap: 8px;
+      flex: 1; /* Distribute remaining height evenly */
+    }
+    
+    .brand-card {
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #fff;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    
+    .brand-card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+      z-index: 1;
+    }
+    
+    .brand-card.light-text {
+      color: rgba(0, 0, 0, 0.9);
+    }
+    
+    .brand-card.light-text .brand-variable {
+      color: rgba(0, 0, 0, 0.4);
+    }
+    
+    .brand-card-main {
+      width: 100%;
+    }
+    
+    .brand-card-row-full {
+      flex: 1; /* Distribute height evenly */
+    }
+    
+    .brand-card-half {
+      flex: 1;
+    }
+
+    .brand-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    
+    .brand-info-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .brand-variable {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.55);
+      font-family: monospace;
+    }
+
+    .brand-value {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .color-card {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      border: 1px solid #E7E7E7;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+    }
+    
+    .color-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .color-preview {
+      height: 120px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #fff;
+      position: relative;
+    }
+    
+    .color-preview.light-text {
+      color: rgba(0, 0, 0, 0.9);
+    }
+
+    .color-name {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .color-value {
+      font-family: monospace;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .color-info {
+      padding: 16px;
+      background: #fff;
+    }
+
+    .color-variable {
+      font-family: monospace;
+      font-size: 12px;
+      color: #666;
+      background: #f5f5f5;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    
+    .neutral-row.dark-bg .color-variable {
+      background: rgba(255, 255, 255, 0.5);
+      color: #000;
+    }
+
+    .color-desc {
+      font-size: 12px;
+      color: #999;
+      margin: 0;
+    }
+    
+    /* Layout for functional colors */
+    .functional-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+    
+    .functional-col {
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      border: 1px solid #E7E7E7;
+    }
+    
+    .functional-header {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 60px;
+      color: #fff;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    
+    .functional-header:hover {
+      z-index: 2;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      transform: scale(1.02);
+      border-radius: 4px;
+    }
+    
+    .functional-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .functional-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .functional-tag {
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    
+    .functional-header-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    
+    .functional-hex {
+      font-size: 16px;
+      font-family: monospace;
+      font-weight: 500;
+    }
+    
+    .functional-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+      padding: 0 20px;
+      font-size: 13px;
+      font-family: monospace;
+      transition: all 0.2s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .functional-row:hover {
+      z-index: 2;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      transform: scale(1.02);
+      border-radius: 4px;
+    }
+    
+    .functional-row.light-text {
+      color: rgba(0, 0, 0, 0.85);
+    }
+    
+    .functional-row.dark-text {
+      color: #fff;
+    }
+    
+    /* Layout for neutral colors */
+    .neutral-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #E7E7E7;
+    }
+    
+    .neutral-row {
+      display: flex;
+      height: 48px;
+      align-items: center;
+      padding: 0 24px;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .neutral-row:hover {
+      z-index: 2;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      transform: scale(1.02);
+      border-radius: 4px;
+    }
+    
+    .neutral-row.dark-bg {
+      color: #fff;
+    }
+    
+    .neutral-row.light-bg {
+      color: #000;
+    }
+    
+    .section-desc {
+      color: #666666 !important;
+      font-size: 14px !important;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+  `}
+</style>
+
+# 颜色 Colors
+
+<div className="section-desc">
+  颜色是一个设计系统的重要基石，它能快速地建立起品牌识别度，使一个产品能够区别于同类功能的产品。此外，建立一个好的色盘能够清晰的展现页面层次，帮助用户形成使用习惯，建立起一致的品牌形象。
+</div>
+
+
+## 品牌色
+
+<div className="section-desc">
+  品牌色是产品中最核心、最高频使用的颜色，它常用于强调信息、引导操作，并在很大程度上决定了产品整体的基调和风格。
+</div>
+
+<div className="color-section">
+  <div className="brand-grid">
+    <div className="brand-main-col">
+      <div className="brand-card brand-card-main" style={{ background: '#00754A' }}>
+        <div className="brand-info-left">
+          <span className="brand-name">Brand Normal</span>
+        </div>
+        <div className="brand-info">
+          <div className="brand-info-left">
+            <span className="brand-variable">--primary-color</span>
+          </div>
+          <span className="brand-value">#00754A</span>
+        </div>
+      </div>
+    </div>
+    
+    <div className="brand-sub-col">
+      <div className="brand-card brand-card-row-full" style={{ background: '#006A44' }}>
+        <div className="brand-info-left">
+          <span className="brand-name">Brand Click</span>
+        </div>
+        <div className="brand-info">
+          <div className="brand-info-left">
+            <span className="brand-variable">--primary-color-click</span>
+          </div>
+          <span className="brand-value">#006A44</span>
+        </div>
+      </div>
+      
+      <div className="brand-sub-row">
+        <div className="brand-card brand-card-half" style={{ background: '#1A9162' }}>
+          <div className="brand-info-left">
+            <span className="brand-name">Brand Hover</span>
+          </div>
+          <div className="brand-info">
+            <div className="brand-info-left">
+              <span className="brand-variable">--primary-color-hover</span>
+            </div>
+            <span className="brand-value">#1A9162</span>
+          </div>
+        </div>
+        <div className="brand-card brand-card-half light-text" style={{ background: '#8BDBBB' }}>
+          <div className="brand-info-left">
+            <span className="brand-name">Brand Disabled</span>
+          </div>
+          <div className="brand-info">
+            <div className="brand-info-left">
+              <span className="brand-variable">--primary-color-disabled</span>
+            </div>
+            <span className="brand-value">#8BDBBB</span>
+          </div>
+        </div>
+      </div>
+      
+      <div className="brand-sub-row">
+        <div className="brand-card brand-card-half light-text" style={{ background: '#B8E9D6' }}>
+          <div className="brand-info-left">
+            <span className="brand-name">Brand Focus</span>
+          </div>
+          <div className="brand-info">
+            <div className="brand-info-left">
+              <span className="brand-variable">--primary-color-focus</span>
+            </div>
+            <span className="brand-value">#B8E9D6</span>
+          </div>
+        </div>
+        <div className="brand-card brand-card-half light-text" style={{ background: '#E6F7F1' }}>
+          <div className="brand-info-left">
+            <span className="brand-name">Brand Light</span>
+          </div>
+          <div className="brand-info">
+            <div className="brand-info-left">
+              <span className="brand-variable">--primary-color-light</span>
+            </div>
+            <span className="brand-value">#E6F7F1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+## 功能色
+
+<div className="section-desc">
+  功能色是指用于特定场景、表达特殊语义的颜色，例如成功、失败、告警、链接等状态。我们定义了4种功能色，在遵循色彩通用含义选取色相的基础上，从视觉一致性的角度选取了与品牌色更具一致关系的色调，并结合WCAG2.0标准综合考量，使其达到可用性标准。
+</div>
+
+<div className="functional-grid">
+  {/* Success Column */}
+  <div className="functional-col">
+    <div className="functional-header" style={{ background: '#2BA471' }}>
+      <div className="functional-header-top">
+        <span className="functional-title">success5-color-normal</span>
+        <span className="functional-tag">成功</span>
+      </div>
+      <div className="functional-header-bottom">
+        <span className="functional-hex">#2BA471</span>
+      </div>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#E3F9E9' }}>
+      <span>success1-color-light</span><span>#E3F9E9</span>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#C6F3D7' }}>
+      <span>success2-color-focus</span><span>#C6F3D7</span>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#92DAB2' }}>
+      <span>success3-color-disabled</span><span>#92DAB2</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#56C08D' }}>
+      <span>success4-color-hover</span><span>#56C08D</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#2BA471' }}>
+      <span>success5-color-normal</span><span>#2BA471</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#008858' }}>
+      <span>success6-color-click</span><span>#008858</span>
+    </div>
+  </div>
+
+  {/* Warning Column */}
+  <div className="functional-col">
+    <div className="functional-header" style={{ background: '#E37318' }}>
+      <div className="functional-header-top">
+        <span className="functional-title">warning5-color-normal</span>
+        <span className="functional-tag">告警</span>
+      </div>
+      <div className="functional-header-bottom">
+        <span className="functional-hex">#E37318</span>
+      </div>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#FFF1E9' }}>
+      <span>warning1-color-light</span><span>#FFF1E9</span>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#FFD9C2' }}>
+      <span>warning2-color-focus</span><span>#FFD9C2</span>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#FFB98C' }}>
+      <span>warning3-color-disabled</span><span>#FFB98C</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#FA9550' }}>
+      <span>warning4-color-hover</span><span>#FA9550</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#E37318' }}>
+      <span>warning5-color-normal</span><span>#E37318</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#BE5A00' }}>
+      <span>warning6-color-click</span><span>#BE5A00</span>
+    </div>
+  </div>
+
+  {/* Error Column */}
+  <div className="functional-col">
+    <div className="functional-header" style={{ background: '#D54941' }}>
+      <div className="functional-header-top">
+        <span className="functional-title">error5-color-normal</span>
+        <span className="functional-tag">错误</span>
+      </div>
+      <div className="functional-header-bottom">
+        <span className="functional-hex">#D54941</span>
+      </div>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#FFF0ED' }}>
+      <span>error1-color-light</span><span>#FFF0ED</span>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#FFD8D2' }}>
+      <span>error2-color-focus</span><span>#FFD8D2</span>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#FFB9B0' }}>
+      <span>error3-color-disabled</span><span>#FFB9B0</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#F6685D' }}>
+      <span>error4-color-hover</span><span>#F6685D</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#D54941' }}>
+      <span>error5-color-normal</span><span>#D54941</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#AD352F' }}>
+      <span>error6-color-click</span><span>#AD352F</span>
+    </div>
+  </div>
+
+  {/* Information Column */}
+  <div className="functional-col">
+    <div className="functional-header" style={{ background: '#0F68DF' }}>
+      <div className="functional-header-top">
+        <span className="functional-title">information5-color-normal</span>
+        <span className="functional-tag">信息</span>
+      </div>
+      <div className="functional-header-bottom">
+        <span className="functional-hex">#0F68DF</span>
+      </div>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#E6F4FF' }}>
+      <span>information1-color-light</span><span>#E6F4FF</span>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#BAE0FF' }}>
+      <span>information2-color-focus</span><span>#BAE0FF</span>
+    </div>
+    <div className="functional-row light-text" style={{ background: '#91CAFF' }}>
+      <span>information3-color-disabled</span><span>#91CAFF</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#409FFF' }}>
+      <span>information4-color-hover</span><span>#409FFF</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#0F68DF' }}>
+      <span>information5-color-normal</span><span>#0F68DF</span>
+    </div>
+    <div className="functional-row dark-text" style={{ background: '#0A58BF' }}>
+      <span>information6-color-click</span><span>#0A58BF</span>
+    </div>
+  </div>
+</div>
+
+## 中性色
+
+<div className="section-desc">
+  中性色包含一系列灰黑色，用于文本、背景、边框和分割线等，构建界面的层级结构。
+</div>
+
+<div className="color-section">
+  <div className="neutral-grid">
+    <div className="neutral-row light-bg" style={{ background: '#FFFFFF' }}>
+      <span className="color-name">White</span>
+      <span className="color-value">#FFFFFF</span>
+      <span className="color-variable">--white</span>
+    </div>
+    <div className="neutral-row light-bg" style={{ background: '#F3F3F3' }}>
+      <span className="color-name">Gray 1</span>
+      <span className="color-value">#F3F3F3</span>
+      <span className="color-variable">--gray-1</span>
+    </div>
+    <div className="neutral-row light-bg" style={{ background: '#EEEEEE' }}>
+      <span className="color-name">Gray 2</span>
+      <span className="color-value">#EEEEEE</span>
+      <span className="color-variable">--gray-2</span>
+    </div>
+    <div className="neutral-row light-bg" style={{ background: '#E7E7E7' }}>
+      <span className="color-name">Gray 3</span>
+      <span className="color-value">#E7E7E7</span>
+      <span className="color-variable">--gray-3 (Divider)</span>
+    </div>
+    <div className="neutral-row light-bg" style={{ background: '#DCDCDC' }}>
+      <span className="color-name">Gray 4</span>
+      <span className="color-value">#DCDCDC</span>
+      <span className="color-variable">--gray-4 (Border)</span>
+    </div>
+    <div className="neutral-row light-bg" style={{ background: '#C5C5C5' }}>
+      <span className="color-name">Gray 5</span>
+      <span className="color-value">#C5C5C5</span>
+      <span className="color-variable">--gray-5</span>
+    </div>
+    <div className="neutral-row light-bg" style={{ background: '#A6A6A6' }}>
+      <span className="color-name">Gray 6</span>
+      <span className="color-value">#A6A6A6</span>
+      <span className="color-variable">--gray-6</span>
+    </div>
+    <div className="neutral-row light-bg" style={{ background: '#8B8B8B' }}>
+      <span className="color-name">Gray 7</span>
+      <span className="color-value">#8B8B8B</span>
+      <span className="color-variable">--gray-7</span>
+    </div>
+    <div className="neutral-row dark-bg" style={{ background: '#777777' }}>
+      <span className="color-name">Gray 8</span>
+      <span className="color-value">#777777</span>
+      <span className="color-variable">--gray-8</span>
+    </div>
+    <div className="neutral-row dark-bg" style={{ background: '#5E5E5E' }}>
+      <span className="color-name">Gray 9</span>
+      <span className="color-value">#5E5E5E</span>
+      <span className="color-variable">--gray-9</span>
+    </div>
+    <div className="neutral-row dark-bg" style={{ background: '#4B4B4B' }}>
+      <span className="color-name">Gray 10</span>
+      <span className="color-value">#4B4B4B</span>
+      <span className="color-variable">--gray-10</span>
+    </div>
+    <div className="neutral-row dark-bg" style={{ background: '#383838' }}>
+      <span className="color-name">Gray 11</span>
+      <span className="color-value">#383838</span>
+      <span className="color-variable">--gray-11</span>
+    </div>
+    <div className="neutral-row dark-bg" style={{ background: '#2C2C2C' }}>
+      <span className="color-name">Gray 12</span>
+      <span className="color-value">#2C2C2C</span>
+      <span className="color-variable">--gray-12</span>
+    </div>
+    <div className="neutral-row dark-bg" style={{ background: '#242424' }}>
+      <span className="color-name">Gray 13</span>
+      <span className="color-value">#242424</span>
+      <span className="color-variable">--gray-13</span>
+    </div>
+    <div className="neutral-row dark-bg" style={{ background: '#181818' }}>
+      <span className="color-name">Gray 14</span>
+      <span className="color-value">#181818</span>
+      <span className="color-variable">--gray-14</span>
+    </div>
+  </div>
+</div>
+
+## 文本/图标色
+
+<div className="section-desc">
+  用于文本、图标等元素的颜色，分为浅色背景下的深色文本和深色背景下的浅色文本。
+</div>
+
+<div className="color-section">
+  <h3>浅色背景</h3>
+  <div className="neutral-grid">
+    <div className="neutral-row light-bg" style={{ background: '#FFFFFF', color: 'rgba(0, 0, 0, 0.90)' }}>
+      <span className="color-name">Text Primary</span>
+      <span className="color-value">rgba(0, 0, 0, 0.90)</span>
+      <span className="color-variable">--text-primary</span>
+    </div>
+    <div className="neutral-row light-bg" style={{ background: '#FFFFFF', color: 'rgba(0, 0, 0, 0.60)' }}>
+      <span className="color-name">Text Secondary</span>
+      <span className="color-value">rgba(0, 0, 0, 0.60)</span>
+      <span className="color-variable">--text-secondary</span>
+    </div>
+    <div className="neutral-row light-bg" style={{ background: '#FFFFFF', color: 'rgba(0, 0, 0, 0.40)' }}>
+      <span className="color-name">Text Placeholder</span>
+      <span className="color-value">rgba(0, 0, 0, 0.40)</span>
+      <span className="color-variable">--text-placeholder</span>
+    </div>
+    <div className="neutral-row light-bg" style={{ background: '#FFFFFF', color: 'rgba(0, 0, 0, 0.26)' }}>
+      <span className="color-name">Text Disabled</span>
+      <span className="color-value">rgba(0, 0, 0, 0.26)</span>
+      <span className="color-variable">--text-disabled</span>
+    </div>
+  </div>
+
+  <h3 style={{ marginTop: '32px' }}>深色背景 (Dark Background)</h3>
+  <div className="neutral-grid" style={{ background: '#000000' }}>
+    <div className="neutral-row dark-bg" style={{ color: 'rgba(255, 255, 255, 0.90)' }}>
+      <span className="color-name">Text White Primary</span>
+      <span className="color-value">rgba(255, 255, 255, 0.90)</span>
+      <span className="color-variable">--text-white-primary</span>
+    </div>
+    <div className="neutral-row dark-bg" style={{ color: 'rgba(255, 255, 255, 0.55)' }}>
+      <span className="color-name">Text White Secondary</span>
+      <span className="color-value">rgba(255, 255, 255, 0.55)</span>
+      <span className="color-variable">--text-white-secondary</span>
+    </div>
+    <div className="neutral-row dark-bg" style={{ color: 'rgba(255, 255, 255, 0.35)' }}>
+      <span className="color-name">Text White Tertiary</span>
+      <span className="color-value">rgba(255, 255, 255, 0.35)</span>
+      <span className="color-variable">--text-white-tertiary</span>
+    </div>
+    <div className="neutral-row dark-bg" style={{ color: 'rgba(255, 255, 255, 0.22)' }}>
+      <span className="color-name">Text White Quaternary</span>
+      <span className="color-value">rgba(255, 255, 255, 0.22)</span>
+      <span className="color-variable">--text-white-quaternary</span>
+    </div>
+  </div>
+</div>
