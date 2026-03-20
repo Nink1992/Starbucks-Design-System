@@ -1,4 +1,4 @@
-import{j as s,M as e}from"./index-BiHbUGEa.js";import{useMDXComponents as x}from"./index-BI3CByS1.js";import"./iframe-Bb2YBIgC.js";import"./index-DS66mu5R.js";import"./index-8_2S3kac.js";import"./index-DrFu-skq.js";function d(o){const a={h1:"h1",h2:"h2",p:"p",...x(),...o.components};return s.jsxs(s.Fragment,{children:[s.jsx(e,{title:"通用/阴影 Shadows"}),`
+import{j as s,M as e}from"./index-Dkyg6AX-.js";import{useMDXComponents as x}from"./index-BI3CByS1.js";import"./iframe-BQok-kjy.js";import"./index-DS66mu5R.js";import"./index-8_2S3kac.js";import"./index-DrFu-skq.js";function d(o){const a={h1:"h1",h2:"h2",p:"p",...x(),...o.components};return s.jsxs(s.Fragment,{children:[s.jsx(e,{title:"通用/阴影 Shadows"}),`
 `,s.jsx("style",{children:`
     .shadow-section {
       margin-bottom: 48px;
