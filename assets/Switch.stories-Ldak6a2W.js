@@ -1,0 +1,62 @@
+import{d as I,b as g,e as O,n as m,u as h,f as $,p as j,k as u,o as b}from"./vue.esm-bundler-5vuPSkAG.js";const o={"switch-wrapper":"_switch-wrapper_19dkh_2","switch-thumb":"_switch-thumb_19dkh_13","is-checked":"_is-checked_19dkh_23","is-disabled":"_is-disabled_19dkh_29","is-loading":"_is-loading_19dkh_36","switch-loading":"_switch-loading_19dkh_1","size-medium":"_size-medium_19dkh_56","size-large":"_size-large_19dkh_72"},A=["aria-checked","aria-disabled"],t=I({__name:"Switch",props:{modelValue:{type:Boolean},disabled:{type:Boolean},loading:{type:Boolean},size:{},activeColor:{},inactiveColor:{}},emits:["update:modelValue","change"],setup(a,{emit:L}){const e=a,p=L,s=u(()=>e.modelValue===!0),N=()=>{if(e.disabled||e.loading)return;const r=!s.value;p("update:modelValue",r),p("change",r)},E=u(()=>({[o["switch-wrapper"]]:!0,[o["is-checked"]]:s.value,[o["is-disabled"]]:e.disabled,[o["is-loading"]]:e.loading,[o[`size-${e.size||"medium"}`]]:!0})),F=u(()=>{const r={};return e.activeColor&&s.value&&(r.backgroundColor=e.activeColor),e.inactiveColor&&!s.value&&(r.backgroundColor=e.inactiveColor),r});return(r,G)=>(b(),g("div",{class:m(E.value),style:j(F.value),onClick:N,role:"switch","aria-checked":s.value,"aria-disabled":a.disabled},[O("span",{class:m(h(o)["switch-thumb"])},[a.loading?(b(),g("span",{key:0,class:m(h(o)["switch-loading-icon"])},null,2)):$("",!0)],2)],14,A))}});t.__docgenInfo={exportName:"default",displayName:"Switch",description:"",tags:{},props:[{name:"modelValue",required:!1,type:{name:"boolean"}},{name:"disabled",required:!1,type:{name:"boolean"}},{name:"loading",required:!1,type:{name:"boolean"}},{name:"size",required:!1,type:{name:"union",elements:[{name:'"medium"'},{name:'"large"'}]}},{name:"activeColor",required:!1,type:{name:"string"}},{name:"inactiveColor",required:!1,type:{name:"string"}}],events:[{name:"update:modelValue",type:{names:["boolean"]}},{name:"change",type:{names:["boolean"]}}],sourceFiles:["/home/runner/work/Starbucks-Design-System/Starbucks-Design-System/Switch/Switch.vue"]};const J={title:"数据录入/开关 Switch",component:t,tags:["autodocs"],parameters:{docs:{description:{component:'<span style="font-size: 14px; color: #666;">开关用于在两种状态（开启/关闭）之间进行切换。</span>'}}},argTypes:{modelValue:{control:"boolean"},disabled:{control:"boolean"},loading:{control:"boolean"},size:{control:"select",options:["medium","large"],description:"Size of the switch"},activeColor:{control:"color"},inactiveColor:{control:"color"}}},l={name:"基础开关",args:{modelValue:!1,size:"medium"},render:a=>({components:{TraeSwitch:t},setup(){return{args:a}},template:'<TraeSwitch v-bind="args" v-model="args.modelValue" />'})},n={args:{modelValue:!0,size:"large"},render:a=>({components:{TraeSwitch:t},setup(){return{args:a}},template:'<TraeSwitch v-bind="args" v-model="args.modelValue" />'})},i={name:"禁用状态",args:{modelValue:!0,disabled:!0}},c={args:{modelValue:!0,loading:!0}},d={args:{modelValue:!0,activeColor:"#ff4d4f",inactiveColor:"#13c2c2"},render:a=>({components:{TraeSwitch:t},setup(){return{args:a}},template:'<TraeSwitch v-bind="args" v-model="args.modelValue" />'})};var v,w,_;l.parameters={...l.parameters,docs:{...(v=l.parameters)==null?void 0:v.docs,source:{originalSource:`{
+  name: '基础开关',
+  args: {
+    modelValue: false,
+    size: 'medium'
+  },
+  render: args => ({
+    components: {
+      TraeSwitch
+    },
+    setup() {
+      return {
+        args
+      };
+    },
+    template: '<TraeSwitch v-bind="args" v-model="args.modelValue" />'
+  })
+}`,...(_=(w=l.parameters)==null?void 0:w.docs)==null?void 0:_.source}}};var S,f,C;n.parameters={...n.parameters,docs:{...(S=n.parameters)==null?void 0:S.docs,source:{originalSource:`{
+  args: {
+    modelValue: true,
+    size: 'large'
+  },
+  render: args => ({
+    components: {
+      TraeSwitch
+    },
+    setup() {
+      return {
+        args
+      };
+    },
+    template: '<TraeSwitch v-bind="args" v-model="args.modelValue" />'
+  })
+}`,...(C=(f=n.parameters)==null?void 0:f.docs)==null?void 0:C.source}}};var V,k,y;i.parameters={...i.parameters,docs:{...(V=i.parameters)==null?void 0:V.docs,source:{originalSource:`{
+  name: '禁用状态',
+  args: {
+    modelValue: true,
+    disabled: true
+  }
+}`,...(y=(k=i.parameters)==null?void 0:k.docs)==null?void 0:y.source}}};var z,T,q;c.parameters={...c.parameters,docs:{...(z=c.parameters)==null?void 0:z.docs,source:{originalSource:`{
+  args: {
+    modelValue: true,
+    loading: true
+  }
+}`,...(q=(T=c.parameters)==null?void 0:T.docs)==null?void 0:q.source}}};var B,D,x;d.parameters={...d.parameters,docs:{...(B=d.parameters)==null?void 0:B.docs,source:{originalSource:`{
+  args: {
+    modelValue: true,
+    activeColor: '#ff4d4f',
+    inactiveColor: '#13c2c2'
+  },
+  render: args => ({
+    components: {
+      TraeSwitch
+    },
+    setup() {
+      return {
+        args
+      };
+    },
+    template: '<TraeSwitch v-bind="args" v-model="args.modelValue" />'
+  })
+}`,...(x=(D=d.parameters)==null?void 0:D.docs)==null?void 0:x.source}}};const K=["Default","Large","Disabled","Loading","CustomColor"];export{d as CustomColor,l as Default,i as Disabled,n as Large,c as Loading,K as __namedExportsOrder,J as default};
