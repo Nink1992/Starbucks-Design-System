@@ -26,6 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 // 默认状态
 export const Default: Story = {
+  name: '默认复选框',
   args: {
     modelValue: false,
     label: 'Checkbox',
@@ -56,6 +57,7 @@ export const Checked: Story = {
 
 // 禁用状态
 export const Disabled: Story = {
+  name: '禁用状态',
   args: {
     modelValue: true,
     label: 'Disabled',
@@ -74,6 +76,7 @@ export const Indeterminate: Story = {
 
 // 复选框组
 export const CheckboxGroup: Story = {
+  name: '复选框组',
   render: () => ({
     components: { TraeCheckbox },
     setup() {

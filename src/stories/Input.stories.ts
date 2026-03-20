@@ -53,6 +53,7 @@ type Story = StoryObj<typeof meta>;
 
 // 基础用法
 export const Basic: Story = {
+  name: '基础输入框',
   render: (args) => ({
     components: { TraeInput },
     setup() {
@@ -70,7 +71,8 @@ export const Basic: Story = {
 
 // 尺寸展示
 export const Sizes: Story = {
-  render: () => ({
+  name: '不同尺寸',
+  render: (args) => ({
     components: { TraeInput },
     setup() {
       const val1 = ref('');
@@ -90,7 +92,8 @@ export const Sizes: Story = {
 
 // 状态展示
 export const Status: Story = {
-  render: () => ({
+  name: '状态展示',
+  render: (args) => ({
     components: { TraeInput },
     setup() {
       const val1 = ref('');
@@ -108,7 +111,8 @@ export const Status: Story = {
 
 // 功能展示
 export const Features: Story = {
-  render: () => ({
+  name: '扩展功能',
+  render: (args) => ({
     components: { TraeInput },
     setup() {
       const val1 = ref('Initial value');
@@ -146,7 +150,8 @@ export const CharacterCount: Story = {
 
 // 文本域
 export const Textarea: Story = {
-  render: () => ({
+  name: '多行文本',
+  render: (args) => ({
     components: { TraeInput },
     setup() {
       const val1 = ref('');
@@ -163,8 +168,9 @@ export const Textarea: Story = {
 };
 
 // 前后缀图标
-export const Icons: Story = {
-  render: () => ({
+export const CustomIcons: Story = {
+  name: '前后缀图标',
+  render: (args) => ({
     components: { TraeInput },
     setup() {
       const val1 = ref('');
@@ -190,7 +196,8 @@ export const Icons: Story = {
 
 // 前后缀标签
 export const Adornments: Story = {
-  render: () => ({
+  name: '前后缀标签',
+  render: (args) => ({
     components: { TraeInput },
     setup() {
       const val1 = ref('');

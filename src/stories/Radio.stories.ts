@@ -36,6 +36,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  name: '默认单选框',
   render: (args) => ({
     components: { TraeRadio, TraeRadioGroup },
     setup() {
@@ -55,6 +56,7 @@ export const Default: Story = {
 };
 
 export const Disabled: Story = {
+  name: '禁用状态',
   render: (args) => ({
     components: { TraeRadio, TraeRadioGroup },
     setup() {
@@ -72,6 +74,7 @@ export const Disabled: Story = {
 };
 
 export const VerticalGroup: Story = {
+  name: '垂直分组',
   render: (args) => ({
     components: { TraeRadio, TraeRadioGroup },
     setup() {
