@@ -121,7 +121,7 @@
   padding: 0;
   background: transparent;
   color: var(--text-primary);
-  font-family: inherit;
+  font-family: var(--font-family-base);
 
   &::placeholder {
     color: var(--text-placeholder);

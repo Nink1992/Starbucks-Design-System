@@ -58,6 +58,7 @@ const meta = {
 } satisfies Meta<typeof Select>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 const defaultOptions = [
@@ -87,7 +88,6 @@ const groupOptions = [
 ];
 
 export const Default: Story = {
-  name: '默认选择器',
   render: (args: any) => ({
     components: { Select },
     setup() {
@@ -103,7 +103,6 @@ export const Default: Story = {
 };
 
 export const Multiple: Story = {
-  name: '多选选择器',
   render: (args: any) => ({
     components: { Select },
     setup() {
@@ -119,7 +118,6 @@ export const Multiple: Story = {
 };
 
 export const Clearable: Story = {
-  name: '可清空选择器',
   render: (args: any) => ({
     components: { Select },
     setup() {
@@ -135,8 +133,7 @@ export const Clearable: Story = {
 };
 
 export const Sizes: Story = {
-  name: '不同尺寸',
-  render: (args: any) => ({
+  render: (args) => ({
     components: { Select },
     setup() {
       const value1 = ref('');
@@ -171,7 +168,6 @@ export const Filled: Story = {
 };
 
 export const Disabled: Story = {
-  name: '禁用状态',
   render: (args: any) => ({
     components: { Select },
     setup() {
@@ -205,7 +201,6 @@ export const PrefixIcon: Story = {
 };
 
 export const Group: Story = {
-  name: '分组选择器',
   render: (args: any) => ({
     components: { Select },
     setup() {

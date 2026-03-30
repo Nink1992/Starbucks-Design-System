@@ -61,4 +61,14 @@
   --text-white-secondary: rgba(255, 255, 255, 0.55);
   --text-white-tertiary: rgba(255, 255, 255, 0.35);
   --text-white-quaternary: rgba(255, 255, 255, 0.22);
+
+  /* 字体家族 (Typography) */
+  /* 基础字体栈 (综合中英数): 优先英数 (Poppins, Roboto)，然后 MacOS 苹方，然后 Win 雅黑，最后是 Noto 兜底和系统默认无衬线 */
+  --font-family-base: "Poppins", "Roboto", "PingFang SC", "Microsoft YaHei", "Noto Sans S Chinese", "Helvetica", "Arial", sans-serif;
+  
+  /* 纯英文字体栈 */
+  --font-family-en: "Poppins", "Noto Sans S Chinese", "Helvetica", "Arial", sans-serif;
+  
+  /* 纯数字字体栈 */
+  --font-family-num: "Roboto", "Noto Sans S Chinese", "Helvetica", "Arial", sans-serif;
 }

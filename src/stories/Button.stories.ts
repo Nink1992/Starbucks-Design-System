@@ -56,7 +56,7 @@ export const Base: Story = {
   args: {
     variant: 'base',
     theme: 'primary',
-  },
+  }
 };
 
 // 变体展示

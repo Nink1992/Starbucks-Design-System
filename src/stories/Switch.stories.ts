@@ -31,7 +31,6 @@ type Story = StoryObj<typeof meta>;
 
 // 默认状态
 export const Default: Story = {
-  name: '基础开关',
   args: {
     modelValue: false,
     size: 'medium',
@@ -62,7 +61,6 @@ export const Large: Story = {
 
 // 禁用状态
 export const Disabled: Story = {
-  name: '禁用状态',
   args: {
     modelValue: true,
     disabled: true,

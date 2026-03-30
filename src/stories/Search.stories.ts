@@ -41,7 +41,6 @@ type Story = StoryObj<typeof meta>;
 
 // 基础用法
 export const Basic: Story = {
-  name: '基础搜索框',
   render: (args) => ({
     components: { TraeSearch },
     setup() {
@@ -59,7 +58,6 @@ export const Basic: Story = {
 
 // 尺寸展示
 export const Sizes: Story = {
-  name: '不同尺寸',
   render: (args) => ({
     components: { TraeSearch },
     setup() {
@@ -80,7 +78,6 @@ export const Sizes: Story = {
 
 // 变体展示
 export const Variants: Story = {
-  name: '不同变体',
   render: (args) => ({
     components: { TraeSearch },
     setup() {
@@ -103,7 +100,6 @@ export const Variants: Story = {
 
 // 功能展示
 export const Features: Story = {
-  name: '功能展示',
   render: (args) => ({
     components: { TraeSearch },
     setup() {
@@ -124,7 +120,6 @@ export const Features: Story = {
 
 // 自定义图标
 export const CustomIcons: Story = {
-  name: '自定义图标',
   render: (args) => ({
     components: { TraeSearch },
     setup() {

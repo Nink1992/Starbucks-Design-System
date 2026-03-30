@@ -51,9 +51,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// 基础用法
+// 基础用法 
 export const Basic: Story = {
-  name: '基础输入框',
   render: (args) => ({
     components: { TraeInput },
     setup() {
@@ -71,7 +70,6 @@ export const Basic: Story = {
 
 // 尺寸展示
 export const Sizes: Story = {
-  name: '不同尺寸',
   render: (args) => ({
     components: { TraeInput },
     setup() {
@@ -92,7 +90,6 @@ export const Sizes: Story = {
 
 // 状态展示
 export const Status: Story = {
-  name: '状态展示',
   render: (args) => ({
     components: { TraeInput },
     setup() {
@@ -109,9 +106,8 @@ export const Status: Story = {
   }),
 };
 
-// 功能展示
+// 扩展功能
 export const Features: Story = {
-  name: '扩展功能',
   render: (args) => ({
     components: { TraeInput },
     setup() {

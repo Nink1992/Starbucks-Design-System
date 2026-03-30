@@ -44,7 +44,6 @@ type Story = StoryObj<typeof meta>;
 
 // 基础用法
 export const Basic: Story = {
-  name: '基础按钮组',
   render: (args) => ({
     components: { TraeButtonGroup },
     setup() {
@@ -62,7 +61,6 @@ export const Basic: Story = {
 
 // 变体展示
 export const Variants: Story = {
-  name: '不同变体',
   render: (args) => ({
     components: { TraeButtonGroup },
     setup() {
@@ -97,7 +95,6 @@ export const Variants: Story = {
 
 // 尺寸展示
 export const Sizes: Story = {
-  name: '不同尺寸',
   render: (args) => ({
     components: { TraeButtonGroup },
     setup() {
@@ -123,7 +120,6 @@ export const Sizes: Story = {
 
 // 使用 Slot
 export const WithSlot: Story = {
-  name: '使用插槽',
   render: (args) => ({
     components: { TraeButtonGroup, TraeButtonGroupItem },
     setup() {
@@ -143,9 +139,8 @@ export const WithSlot: Story = {
   }),
 };
 
-// 禁用状态
-export const Disabled: Story = {
-  name: '禁用状态',
+// 状态展示
+export const Status: Story = {
   render: (args) => ({
     components: { TraeButtonGroup },
     setup() {

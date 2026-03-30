@@ -1,0 +1,588 @@
+@import '../src/styles/variables.css';
+
+.datepicker-container {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.datepicker-trigger {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid var(--gray-4);
+  border-radius: 4px;
+  background-color: var(--white);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+  padding: 0 12px;
+
+  &:hover {
+    border-color: var(--primary-color);
+  }
+
+  &.is-focused {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color-focus);
+    z-index: 1;
+  }
+}
+
+.input-wrapper {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.datepicker-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  cursor: pointer;
+
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+}
+
+.suffix-group {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-secondary);
+}
+
+.clear-icon {
+  display: inline-flex;
+  cursor: pointer;
+  
+  &:hover {
+    path:first-child {
+      fill: var(--gray-6);
+    }
+  }
+}
+
+.calendar-icon {
+  display: inline-flex;
+}
+
+/* Sizes */
+.size-large .datepicker-trigger {
+  height: 40px;
+  font-size: 16px;
+}
+
+.size-medium .datepicker-trigger {
+  height: 32px;
+  font-size: 14px;
+}
+
+.size-small .datepicker-trigger {
+  height: 24px;
+  font-size: 12px;
+  padding: 0 8px;
+}
+
+/* Disabled */
+.is-disabled .datepicker-trigger {
+  background-color: var(--gray-1);
+  border-color: var(--gray-4);
+  cursor: not-allowed;
+
+  .datepicker-input {
+    color: var(--text-disabled);
+    cursor: not-allowed;
+  }
+
+  .suffix-group {
+    color: var(--text-disabled);
+  }
+
+  &:hover {
+    border-color: var(--gray-4);
+  }
+}
+
+/* Dropdown Calendar */
+.datepicker-dropdown {
+  position: absolute;
+  width: max-content;
+  min-width: 280px;
+  background-color: var(--white);
+  border-radius: 6px;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.1), 0px 8px 10px 1px rgba(0, 0, 0, 0.06), 0px 3px 14px 2px rgba(0, 0, 0, 0.05); /* shadow-2 */
+  z-index: 9999;
+  box-sizing: border-box;
+  font-family: 'PingFang SC', sans-serif;
+  overflow: hidden; /* 防止内部内容撑破圆角 */
+}
+
+.calendar-main {
+  display: flex;
+  align-items: stretch; /* Ensure both children (left and right) stretch to the same height */
+}
+
+.calendar-left {
+  flex: 1;
+  width: 288px; /* Ant Design DatePicker width is roughly 288px */
+}
+
+.calendar-right {
+  width: 288px;
+  /* Remove border-left for range mode */
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  height: 40px;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--gray-3);
+}
+
+.range-header {
+  width: 100%;
+}
+
+.range-header-titles {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1;
+  padding: 0 24px;
+}
+.header-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: var(--text-primary);
+    background-color: var(--gray-2);
+  }
+}
+
+.header-title {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-title-year,
+.header-title-month {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--gray-2);
+    color: var(--primary-color);
+  }
+}
+
+.calendar-body {
+  /* No longer flex here, it is just wrapper for left side panels */
+}
+
+.date-panel {
+  padding: 8px 12px 0 12px; /* Remove bottom padding to stick grid to footer */
+  width: 288px;
+  box-sizing: border-box;
+  height: 256px; /* Adjusted height after removing 8px bottom padding */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 当同时显示时间面板时，调整高度以适配 349px 总高度 */
+.datepicker-dropdown:has(.time-panel) .date-panel {
+  height: 268px; /* header 40 + footer 41 + body 268 = 349 */
+}
+
+.month-panel,
+.year-panel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr); /* 自动将 4 行均分填满容器高度 */
+  padding: 12px; /* 使用统一的内边距，让内部网格自适应 */
+  width: 288px;
+  box-sizing: border-box;
+  height: 264px; /* 配合 header 40px，使得总高度为 304px */
+}
+
+.month-cell,
+.year-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* 填满分配到的网格区域 */
+  height: 100%; /* 填满分配到的网格区域 */
+  /* 内部的实际选中高亮区域通过伪元素实现，保持热区较大而视觉区域较小 */
+  font-size: 14px;
+  color: var(--text-primary);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 24px;
+    border-radius: 4px;
+    z-index: -1;
+    transition: background-color 0.2s ease;
+  }
+
+  &:hover::after {
+    background-color: var(--gray-2);
+  }
+
+  &.is-other-decade {
+    color: var(--text-disabled);
+  }
+
+  &.is-current {
+    color: var(--primary-color);
+    font-weight: 500;
+  }
+
+  &.is-selected {
+    color: var(--white);
+    
+    &::after {
+      background-color: var(--primary-color);
+    }
+
+    &:hover::after {
+      background-color: var(--primary-color-hover);
+    }
+  }
+}
+
+.time-panel {
+  display: flex;
+  flex-direction: column;
+  width: 172px; /* 整体 460 - 左侧 288 = 172px */
+  border-left: 1px solid var(--gray-3);
+  box-sizing: border-box;
+  height: 308px; /* date-panel height (268) + calendar-header height (40) */
+}
+
+.time-header {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--gray-3);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.time-body {
+  display: flex;
+  flex: 1;
+  height: 268px; /* 308 - header 40 */
+  overflow: hidden; /* 防止溢出破坏整体圆角 */
+}
+
+.time-column {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  border-right: 1px solid var(--gray-3);
+  scroll-behavior: smooth;
+  
+  &:last-child {
+    border-right: none;
+  }
+  
+  /* Hide scrollbar */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.time-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* Add padding to allow scrolling to top/bottom items cleanly */
+  padding-bottom: 200px; 
+}
+
+.time-item {
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0 4px; /* Add some margin to not touch the borders */
+  border-radius: 4px;
+  
+  &:hover {
+    background-color: var(--gray-2);
+  }
+  
+  &.is-selected {
+    /* Remove font-weight: 500; as requested */
+    /* Use the primary-color-light background from design, text color stays default */
+    background-color: var(--primary-color-light); 
+  }
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px; /* Less space between weekdays and days */
+}
+
+.weekday {
+  text-align: center;
+  font-size: 14px; /* Same as days */
+  color: var(--text-primary); /* Antd weekdays are usually primary color not secondary */
+  line-height: 36px; /* Antd cells are larger */
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: 8px; /* 增加行间距以避免上下连接线粘连 */
+}
+
+.day-cell-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  width: 100%; /* Take full width of the grid cell */
+  box-sizing: border-box;
+
+  /* Range connection backgrounds */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    z-index: 0; /* Background layer */
+    transition: background-color 0.2s ease;
+  }
+
+  &.is-in-range {
+    &::before {
+      background-color: var(--primary-color-light);
+      /* Extend horizontally to cover grid gaps */
+      width: calc(100% + 17px);
+      left: -8.5px;
+    }
+    &:hover::before {
+      background-color: var(--primary-color-bg);
+    }
+  }
+
+  &.is-range-start {
+    &::before {
+      background-color: var(--primary-color-light);
+      width: calc(50% + 8.5px);
+      left: 50%;
+      right: auto;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+  }
+
+  &.is-range-end {
+    &::before {
+      background-color: var(--primary-color-light);
+      width: calc(50% + 8.5px);
+      left: auto;
+      right: 50%;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+
+  &.is-range-start.is-range-end {
+    &::before {
+      display: none; /* No background line if start and end are same */
+    }
+  }
+}
+
+.day-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+  margin: 0 auto;
+  font-size: 14px;
+  color: var(--text-primary);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  z-index: 1; /* Above the wrapper background */
+
+  &:hover {
+    background-color: var(--gray-2);
+  }
+
+  &.is-other-month {
+    color: var(--text-disabled);
+  }
+
+  &.is-today {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  &.is-disabled {
+    color: var(--text-disabled);
+    cursor: not-allowed;
+    background-color: var(--gray-2);
+    &:hover {
+      background-color: var(--gray-2);
+    }
+  }
+
+  &.is-selected {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+
+    &:hover {
+      background-color: var(--primary-color-hover);
+    }
+  }
+}
+
+.range-input-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 4px; /* From Figma layout_SYR75U */
+}
+
+.range-input-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%; /* Make it take full height if possible */
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+  padding: 0 8px; /* From Figma layout_G7F32H */
+  box-sizing: border-box;
+
+  &.is-active {
+    border-bottom-color: var(--primary-color);
+  }
+}
+
+.range-input {
+  width: 100%;
+  text-align: left; /* From Figma Body/Medium textAlignHorizontal: LEFT */
+  height: 100%;
+}
+
+.range-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.calendar-footer {
+  padding: 8px 12px;
+  border-top: 1px solid var(--gray-3);
+  display: flex;
+  justify-content: center; /* 默认居中，为了让单日历的"今天"居中 */
+  align-items: center;
+  box-sizing: border-box;
+
+  /* 当存在 confirm-btn 时（此时通常也有 today-btn，即两个按钮），使用 space-between 让它们分布在两端 */
+  &:has(.confirm-btn) {
+    justify-content: space-between;
+  }
+}
+
+.today-btn {
+  font-size: 14px;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 24px;
+
+  &:hover {
+    color: var(--primary-color-hover);
+  }
+}
+
+.confirm-btn {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 0 12px;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    background-color: var(--primary-color-hover);
+  }
+
+  &.is-disabled,
+  &:disabled {
+    background-color: var(--gray-3);
+    color: var(--text-disabled);
+    cursor: not-allowed;
+  }
+}
