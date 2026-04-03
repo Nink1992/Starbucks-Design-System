@@ -1,0 +1,310 @@
+@import '../src/styles/variables.css';
+
+.input-number {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  vertical-align: middle;
+
+  &.is-disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* === Theme: Row (双侧调整) === */
+.theme-row {
+  gap: 4px; /* Figma shows gap: 4px between buttons and input */
+
+  .row-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--white);
+    border: 1px solid var(--gray-4);
+    border-radius: 4px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+    flex-shrink: 0;
+    padding: 0;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover:not(.is-disabled) {
+      border-color: var(--primary-color-hover);
+      color: var(--primary-color-hover);
+      background-color: var(--gray-1);
+    }
+
+    &:active:not(.is-disabled) {
+      border-color: var(--primary-color-click);
+      color: var(--primary-color-click);
+      background-color: var(--gray-2);
+    }
+
+    &.is-disabled {
+      background-color: var(--gray-1);
+      border-color: var(--gray-4);
+      color: var(--text-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  .input-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--gray-4);
+    border-radius: 4px;
+    background-color: var(--white);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 60px; /* Minimum width for the input part */
+
+    &:hover:not(.is-disabled):not(.is-readonly):not(.is-focused) {
+      border-color: var(--primary-color);
+    }
+
+    &.is-focused {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px var(--primary-color-focus);
+      z-index: 1;
+    }
+
+    &.is-disabled {
+      background-color: var(--gray-1);
+      border-color: var(--gray-4);
+      cursor: not-allowed;
+    }
+
+    &.status-error {
+      border-color: #D54941;
+      &.is-focused {
+        box-shadow: 0 0 0 2px rgba(213, 73, 65, 0.2);
+      }
+    }
+  }
+
+  &.is-filled {
+    .row-btn, .input-wrapper {
+      background-color: var(--gray-2);
+      border-color: transparent;
+
+      &:hover:not(.is-disabled):not(.is-focused) {
+        background-color: var(--gray-3);
+      }
+    }
+    
+    .input-wrapper.is-focused {
+      background-color: var(--white);
+      border-color: var(--primary-color);
+    }
+
+    .row-btn.is-disabled, .input-wrapper.is-disabled {
+      background-color: var(--gray-2);
+      color: var(--text-disabled);
+      border-color: transparent;
+    }
+  }
+
+  /* Sizes for row */
+  &.size-large {
+    width: 172px;
+    .row-btn { width: 40px; height: 40px; }
+    .input-wrapper { height: 40px; width: 84px; padding: 0 12px; }
+    .input-core { font-size: 16px; }
+  }
+  &.size-medium {
+    width: 144px; /* Figma: 144px total width for medium */
+    .row-btn { width: 32px; height: 32px; }
+    .input-wrapper { height: 32px; width: 72px; padding: 0 8px; } /* (144 - 32 - 32 - 4 - 4) = 72px for the input wrapper */
+    .input-core { font-size: 14px; }
+  }
+  &.size-small {
+    width: 116px;
+    .row-btn { width: 24px; height: 24px; }
+    .input-wrapper { height: 24px; width: 60px; padding: 0 8px; }
+    .input-core { font-size: 12px; }
+  }
+}
+
+/* === Theme: Column (右侧调整) === */
+.theme-column {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--gray-4);
+  border-radius: 4px;
+  background-color: var(--white);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  min-width: 96px; /* Update default to 96px */
+  overflow: hidden;
+
+  &:hover:not(.is-disabled):not(.is-readonly):not(.is-focused) {
+    border-color: var(--primary-color);
+  }
+
+  &.is-focused {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color-focus);
+    z-index: 1;
+  }
+
+  &.is-disabled {
+    background-color: var(--gray-1);
+    border-color: var(--gray-4);
+    cursor: not-allowed;
+  }
+
+  &.status-error {
+    border-color: #D54941;
+    &.is-focused {
+      box-shadow: 0 0 0 2px rgba(213, 73, 65, 0.2);
+    }
+  }
+
+  &.is-filled {
+    background-color: var(--gray-2);
+    border-color: transparent;
+
+    &:hover:not(.is-disabled):not(.is-focused) {
+      background-color: var(--gray-3);
+    }
+
+    &.is-focused {
+      background-color: var(--white);
+      border-color: var(--primary-color);
+    }
+    
+    &.is-disabled {
+      background-color: var(--gray-2);
+      border-color: transparent;
+    }
+  }
+
+  .input-core {
+    flex: 1;
+    height: 100%;
+  }
+
+  .column-actions {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--gray-4);
+    height: 100%;
+    width: 24px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    transition: all 0.2s;
+    opacity: 0; /* Hidden by default in normal state */
+    pointer-events: none; /* Prevent clicks when hidden */
+  }
+
+  /* Show actions on hover, focus, or if it's filled/disabled (depending on design, usually hover/focus) */
+  &:hover:not(.is-disabled),
+  &.is-focused {
+    .column-actions {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  &.is-filled .column-actions {
+    border-left-color: var(--gray-4); /* maybe keep a subtle border or transparent */
+  }
+
+  &.is-disabled .column-actions {
+    border-left-color: var(--gray-4);
+  }
+
+  .column-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+    box-sizing: border-box;
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    &:first-child {
+      border-bottom: 1px solid var(--gray-4);
+    }
+
+    &:hover:not(.is-disabled) {
+      color: var(--primary-color-hover);
+      background-color: var(--gray-1);
+    }
+
+    &:active:not(.is-disabled) {
+      color: var(--primary-color-click);
+      background-color: var(--gray-2);
+    }
+
+    &.is-disabled {
+      color: var(--text-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  /* Sizes for column */
+  &.size-large {
+    height: 40px;
+    width: 112px;
+    .input-core { padding: 0 12px; font-size: 16px; }
+  }
+  &.size-medium {
+    height: 32px;
+    width: 96px; /* Default 96px */
+    .input-core { padding: 0 12px; font-size: 14px; }
+  }
+  &.size-small {
+    height: 24px;
+    width: 80px;
+    .input-core { padding: 0 8px; font-size: 12px; }
+  }
+}
+
+/* Core Input (Shared) */
+.input-core {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-family-base, inherit);
+  text-align: center; /* Typically numbers are centered or right aligned. Figma shows centered for row, left for column? Let's use left aligned with some padding, but row might be centered. I will center it for row, left for column. */
+  
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    color: var(--text-disabled);
+  }
+}
+
+.theme-row .input-core {
+  text-align: center;
+}
+
+.theme-column .input-core {
+  text-align: left;
+}

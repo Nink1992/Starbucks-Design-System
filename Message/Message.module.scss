@@ -1,0 +1,107 @@
+@import '../src/styles/variables.css';
+
+/* Message Item */
+.message {
+  display: inline-flex;
+  align-items: flex-start;
+  padding: 10px 16px;
+  background-color: var(--white);
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  max-width: 80vw;
+  word-break: break-all;
+}
+
+/* Icon */
+.message-icon {
+  margin-right: 8px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 21px; /* Center align with first line of text */
+}
+
+/* Themes */
+.theme-info .message-icon {
+  color: var(--information5-color-normal);
+}
+.theme-success .message-icon {
+  color: var(--success5-color-normal);
+}
+.theme-warning .message-icon {
+  color: var(--warning5-color-normal);
+}
+.theme-error .message-icon {
+  color: var(--error5-color-normal);
+}
+.theme-question .message-icon {
+  color: var(--primary-color);
+}
+.theme-loading .message-icon {
+  color: var(--primary-color);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Content */
+.message-content {
+  flex: 1;
+}
+
+/* Close button */
+.message-close {
+  margin-left: 16px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 21px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--text-primary);
+  }
+}
+
+/* Transitions */
+.message-fade-enter-active,
+.message-fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.message-fade-enter-from {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.message-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Container */
+.message-list {
+  position: fixed;
+  top: 24px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 6000;
+}

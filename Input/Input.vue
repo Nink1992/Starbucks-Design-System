@@ -1,5 +1,6 @@
 <template>
   <div
+    v-bind="$attrs"
     :class="[
       $style['input-container'],
       {
@@ -139,6 +140,7 @@ import type { InputProps, InputEmits } from './Input.types';
 
 defineOptions({
   name: 'TraeInput',
+  inheritAttrs: false,
 });
 
 const props = withDefaults(defineProps<InputProps>(), {

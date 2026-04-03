@@ -152,7 +152,7 @@ export const Sizes: Story = {
 };
 
 export const Filled: Story = {
-  name: '填充样式',
+  name: 'Filled',
   render: (args: any) => ({
     components: { Select },
     setup() {
@@ -185,7 +185,7 @@ export const Disabled: Story = {
 };
 
 export const PrefixIcon: Story = {
-  name: '带前置图标',
+  name: 'With Prefix Icon',
   render: (args: any) => ({
     components: { Select },
     setup() {

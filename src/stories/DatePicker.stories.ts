@@ -89,7 +89,7 @@ export const Clearable: Story = {
 };
 
 export const Sizes: Story = {
-  name: '不同尺寸',
+  name: 'Sizes',
   render: (args: any) => ({
     components: { DatePicker },
     setup() {

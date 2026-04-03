@@ -1,0 +1,217 @@
+@import '../src/styles/variables.css';
+
+.pagination {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-family-base, inherit);
+  color: var(--text-primary);
+  font-size: 14px;
+
+  ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    align-items: center;
+    gap: 8px; /* Default gap between page items per figma */
+  }
+
+  &.is-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+/* Common Item Style */
+.page-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 32px;
+  height: 32px;
+  border-radius: 32px; /* Circular style from figma */
+  background: var(--white);
+  border: 1px solid var(--gray-4);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 400;
+  user-select: none;
+
+  svg {
+    width: 14px;
+    height: 14px;
+    fill: none; /* Ensure no background fill on the icon paths */
+    color: currentColor; /* Ensure stroke or fill respects current color if they use currentColor */
+  }
+
+  &:hover:not(.is-disabled):not(.is-active):not(.is-ellipsis) {
+    border-color: var(--primary-color-hover);
+    color: var(--primary-color-hover);
+  }
+
+  &.is-active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white);
+    font-weight: 400; /* No bold for active state */
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    color: var(--text-disabled);
+    border-color: var(--gray-4);
+    background: var(--gray-1);
+  }
+
+  &.is-ellipsis {
+    border-color: transparent;
+    background: transparent;
+    cursor: default;
+    color: var(--text-disabled);
+    letter-spacing: 2px;
+  }
+}
+
+/* Prev / Next Button specific (just an icon, no border/background) */
+.page-nav {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+
+  &.is-disabled {
+    background: transparent;
+    border: none;
+    color: var(--text-disabled);
+  }
+
+  &:hover:not(.is-disabled) {
+    background: transparent; /* No background on hover */
+    border: none;
+    color: var(--primary-color); /* Just icon color change */
+  }
+}
+
+/* Total Text */
+.pagination-total {
+  margin-right: 16px; /* From figma: 16px gap between total and prev button */
+  color: var(--text-placeholder); /* rgba(0, 0, 0, 0.4) based on figma */
+  font-size: 14px;
+}
+
+/* Size Changer & Jumper Layout */
+.pagination-options {
+  display: flex;
+  align-items: center;
+  margin-left: 16px; /* From figma: 16px gap between next button and size changer */
+  gap: 16px; /* From figma: 16px gap between size changer block and jumper block */
+  color: var(--text-secondary); /* rgba(0, 0, 0, 0.6) from figma */
+  font-size: 14px;
+}
+
+.size-changer, .quick-jumper {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Internal gap between text and select/input per figma */
+}
+
+.changer-select-wrapper {
+  width: 80px !important;
+  min-width: 80px !important;
+  
+  :global(.select-trigger),
+  :deep(div[class*="select-trigger"]) {
+    padding: 0 12px;
+  }
+}
+
+.changer-text {
+  color: var(--text-secondary); /* rgba(0, 0, 0, 0.6) from figma */
+}
+
+.jumper-input-wrapper {
+  width: 80px !important;
+  min-width: 80px !important;
+  
+  /* Target the internal wrapper of the Input component to force its width */
+  :global(.input-wrapper),
+  :deep(div[class*="input-wrapper"]) {
+    width: 80px !important;
+    min-width: 80px !important;
+  }
+  
+  input {
+    text-align: center;
+  }
+}
+
+/* Size adjustments */
+.pagination.size-small {
+  font-size: 12px;
+  
+  .page-item {
+    min-width: 24px;
+    height: 24px;
+    border-radius: 24px;
+    font-size: 12px;
+    
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .pagination-total, .pagination-options {
+    font-size: 12px;
+  }
+
+  .changer-select-wrapper {
+    width: 60px !important;
+    min-width: 60px !important;
+    
+    :global(.select-trigger),
+    :deep(div[class*="select-trigger"]) {
+      padding: 0 8px;
+    }
+  }
+
+  .jumper-input-wrapper,
+  .simple-input-wrapper {
+    width: 60px !important;
+    min-width: 60px !important;
+    
+    /* Target the internal wrapper of the Input component to force its width */
+    :global(.input-wrapper),
+    :deep(div[class*="input-wrapper"]) {
+      width: 60px !important;
+      min-width: 60px !important;
+    }
+  }
+}
+
+/* Theme Simple (极简版分页) */
+.theme-simple {
+  .simple-jumper {
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  .simple-input-wrapper {
+    width: 80px !important;
+    min-width: 80px !important;
+    margin: 0 8px;
+    
+    /* Target the internal wrapper of the Input component to force its width */
+    :global(.input-wrapper),
+    :deep(div[class*="input-wrapper"]) {
+      width: 80px !important;
+      min-width: 80px !important;
+    }
+    
+    input {
+      text-align: center;
+    }
+  }
+}

@@ -146,7 +146,7 @@ export const CharacterCount: Story = {
 
 // 文本域
 export const Textarea: Story = {
-  name: '多行文本',
+  name: 'Textarea',
   render: (args) => ({
     components: { TraeInput },
     setup() {
@@ -165,7 +165,7 @@ export const Textarea: Story = {
 
 // 前后缀图标
 export const CustomIcons: Story = {
-  name: '前后缀图标',
+  name: 'With Icons',
   render: (args) => ({
     components: { TraeInput },
     setup() {
@@ -192,7 +192,7 @@ export const CustomIcons: Story = {
 
 // 前后缀标签
 export const Adornments: Story = {
-  name: '前后缀标签',
+  name: 'With Addons',
   render: (args) => ({
     components: { TraeInput },
     setup() {
