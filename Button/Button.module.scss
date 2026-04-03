@@ -10,8 +10,8 @@
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
   user-select: none;
-  font-family: var(--font-family-base);
-  font-weight: 500;
+  font-family: inherit;
+  font-weight: 400;
   
   /* Sizing */
   &.size-large {

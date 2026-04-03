@@ -299,7 +299,7 @@
   margin: 0;
   background: transparent;
   color: var(--text-primary);
-  font-family: var(--font-family-base);
+  font-family: inherit;
 
   &::placeholder {
     color: var(--text-placeholder);
