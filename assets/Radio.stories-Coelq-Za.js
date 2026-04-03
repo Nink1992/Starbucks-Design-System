@@ -1,0 +1,96 @@
+import{e as w,f as b,g as m,n as l,k as D,j as B,c as p,L as N,o as v,m as C,t as M,N as E,R,r as f}from"./vue.esm-bundler-DEFMfx8h.js";import{_ as S}from"./_plugin-vue_export-helper-DlAUqK2U.js";const I=["value","name","disabled","checked"],q=w({name:"TraeRadio",__name:"Radio",props:{value:{type:[String,Number,Boolean]},label:{},disabled:{type:Boolean,default:!1},variant:{},size:{},error:{type:Boolean,default:!1},name:{}},setup(a){const r=a,e=N("RadioGroupContext",null),o=p(()=>e&&e.modelValue?e.modelValue.value===r.value:!1),d=p(()=>r.disabled||(e==null?void 0:e.disabled.value)||!1),s=p(()=>r.name||(e==null?void 0:e.name)),_=()=>{d.value||e&&e.updateValue(r.value)};return(i,J)=>(v(),b("label",{class:l([i.$style["radio-wrapper"],i.$style["radio-basic"],{[i.$style["is-checked"]]:o.value,[i.$style["is-disabled"]]:d.value,[i.$style["is-error"]]:a.error}]),onClick:_},[m("span",{class:l(i.$style["radio-input-wrapper"])},[m("input",{type:"radio",class:l(i.$style["radio-input"]),value:a.value,name:s.value,disabled:d.value,checked:o.value,tabindex:"0"},null,10,I),m("span",{class:l(i.$style["radio-indicator"])},null,2)],2),a.label||i.$slots.default?(v(),b("span",{key:0,class:l(i.$style["radio-label"])},[D(i.$slots,"default",{},()=>[C(M(a.label),1)])],2)):B("",!0)],2))}}),j={"radio-wrapper":"_radio-wrapper_1tbwz_8","is-disabled":"_is-disabled_1tbwz_20","radio-label":"_radio-label_1tbwz_23","radio-input":"_radio-input_1tbwz_27","radio-basic":"_radio-basic_1tbwz_35","radio-indicator":"_radio-indicator_1tbwz_39","is-checked":"_is-checked_1tbwz_72","is-focused":"_is-focused_1tbwz_83","is-error":"_is-error_1tbwz_110","radio-group-vertical":"_radio-group-vertical_1tbwz_122"},F={$style:j},c=S(q,[["__cssModules",F]]);q.__docgenInfo={name:"TraeRadio",exportName:"default",displayName:"Radio",description:"",tags:{},props:[{name:"value",required:!0,type:{name:"RadioValue"}},{name:"label",required:!1,type:{name:"string"}},{name:"disabled",required:!1,type:{name:"boolean"},defaultValue:{func:!1,value:"false"}},{name:"variant",required:!1,type:{name:"union",elements:[{name:'"basic"'},{name:'"button-primary-filled"'},{name:'"button-default-filled"'},{name:'"button-outline"'}]}},{name:"size",required:!1,type:{name:"union",elements:[{name:'"small"'},{name:'"medium"'},{name:'"large"'}]}},{name:"error",required:!1,type:{name:"boolean"},defaultValue:{func:!1,value:"false"}},{name:"name",required:!1,type:{name:"string"}}],slots:[{name:"default"}],sourceFiles:["/home/runner/work/Starbucks-Design-System/Starbucks-Design-System/Radio/Radio.vue"]};const O=w({name:"TraeRadioGroup",__name:"RadioGroup",props:{modelValue:{type:[String,Number,Boolean]},direction:{default:"horizontal"},spacing:{},name:{},disabled:{type:Boolean,default:!1},size:{},variant:{}},emits:["update:modelValue","change"],setup(a,{emit:r}){const e=a,o=r,d=s=>{o("update:modelValue",s),o("change",s)};return E("RadioGroupContext",{name:e.name,modelValue:R(e,"modelValue"),disabled:R(e,"disabled"),updateValue:d}),(s,_)=>(v(),b("div",{class:l(["radio-group",`is-${a.direction}`,{[s.$style["radio-group-vertical"]]:a.direction==="vertical"}]),role:"radiogroup"},[D(s.$slots,"default",{},void 0,!0)],2))}}),L={"radio-wrapper":"_radio-wrapper_akaop_1","is-disabled":"_is-disabled_akaop_1","radio-label":"_radio-label_akaop_1","radio-input":"_radio-input_akaop_1","radio-basic":"_radio-basic_akaop_1","radio-indicator":"_radio-indicator_akaop_1","is-checked":"_is-checked_akaop_1","is-focused":"_is-focused_akaop_1","is-error":"_is-error_akaop_1","radio-group-vertical":"_radio-group-vertical_akaop_1"},H={$style:L},g=S(O,[["__cssModules",H],["__scopeId","data-v-1ce047d4"]]);O.__docgenInfo={name:"TraeRadioGroup",exportName:"default",displayName:"RadioGroup",description:"",tags:{},props:[{name:"modelValue",required:!1,type:{name:"RadioValue"}},{name:"direction",required:!1,type:{name:"union",elements:[{name:'"horizontal"'},{name:'"vertical"'}]},defaultValue:{func:!1,value:"'horizontal'"}},{name:"spacing",required:!1,type:{name:"union",elements:[{name:"string"},{name:"number"}]}},{name:"name",required:!1,type:{name:"string"}},{name:"disabled",required:!1,type:{name:"boolean"},defaultValue:{func:!1,value:"false"}},{name:"size",required:!1,type:{name:"union",elements:[{name:'"small"'},{name:'"medium"'},{name:'"large"'}]}},{name:"variant",required:!1,type:{name:"union",elements:[{name:'"basic"'},{name:'"button-primary-filled"'},{name:'"button-default-filled"'},{name:'"button-outline"'}]}}],events:[{name:"update:modelValue",type:{names:["RadioValue"]}},{name:"change",type:{names:["RadioValue"]}}],slots:[{name:"default"}],sourceFiles:["/home/runner/work/Starbucks-Design-System/Starbucks-Design-System/Radio/RadioGroup.vue"]};const Q={title:"数据录入/单选框 Radio",component:c,tags:["autodocs"],parameters:{docs:{description:{component:'<span style="font-size: 14px; color: #666;">Radio 组件允许用户在一组互斥的选项中选择其中一个。它通常用于表单提交、设置偏好或切换特定视图。</span>'}}},argTypes:{disabled:{control:"boolean"},error:{control:"boolean"},variant:{control:"select",options:["basic","button-primary-filled","button-default-filled","button-outline"]},size:{control:"select",options:["small","medium","large"]},value:{control:!1}},args:{value:"default",label:"Radio Label"}},t={name:"Basic Radio",render:a=>({components:{TraeRadio:c,TraeRadioGroup:g},setup(){const r=f("1"),{value:e,...o}=a;return{radioArgs:o,selected:r}},template:`
+      <TraeRadioGroup v-model="selected">
+        <TraeRadio value="1" label="Option 1" v-bind="radioArgs" />
+        <TraeRadio value="2" label="Option 2" v-bind="radioArgs" />
+        <TraeRadio value="3" label="Option 3" v-bind="radioArgs" />
+      </TraeRadioGroup>
+    `})},n={name:"Disabled",render:a=>({components:{TraeRadio:c,TraeRadioGroup:g},setup(){const r=f("1"),{value:e,...o}=a;return{radioArgs:o,selected:r}},template:`
+      <TraeRadioGroup v-model="selected" disabled>
+        <TraeRadio value="1" label="Disabled 1" v-bind="radioArgs" />
+        <TraeRadio value="2" label="Disabled 2" v-bind="radioArgs" />
+      </TraeRadioGroup>
+    `})},u={name:"Vertical Group",render:a=>({components:{TraeRadio:c,TraeRadioGroup:g},setup(){const r=f("1"),{value:e,...o}=a;return{radioArgs:o,selected:r}},template:`
+      <TraeRadioGroup v-model="selected" direction="vertical">
+        <TraeRadio value="1" label="Option 1" v-bind="radioArgs" />
+        <TraeRadio value="2" label="Option 2" v-bind="radioArgs" />
+        <TraeRadio value="3" label="Option 3" v-bind="radioArgs" />
+      </TraeRadioGroup>
+    `})};var y,T,k;t.parameters={...t.parameters,docs:{...(y=t.parameters)==null?void 0:y.docs,source:{originalSource:`{
+  name: 'Basic Radio',
+  render: args => ({
+    components: {
+      TraeRadio,
+      TraeRadioGroup
+    },
+    setup() {
+      const selected = ref('1');
+      // Exclude value from args to avoid overriding specific radio values
+      const {
+        value,
+        ...radioArgs
+      } = args;
+      return {
+        radioArgs,
+        selected
+      };
+    },
+    template: \`
+      <TraeRadioGroup v-model="selected">
+        <TraeRadio value="1" label="Option 1" v-bind="radioArgs" />
+        <TraeRadio value="2" label="Option 2" v-bind="radioArgs" />
+        <TraeRadio value="3" label="Option 3" v-bind="radioArgs" />
+      </TraeRadioGroup>
+    \`
+  })
+}`,...(k=(T=t.parameters)==null?void 0:T.docs)==null?void 0:k.source}}};var G,V,A;n.parameters={...n.parameters,docs:{...(G=n.parameters)==null?void 0:G.docs,source:{originalSource:`{
+  name: 'Disabled',
+  render: args => ({
+    components: {
+      TraeRadio,
+      TraeRadioGroup
+    },
+    setup() {
+      const selected = ref('1');
+      const {
+        value,
+        ...radioArgs
+      } = args;
+      return {
+        radioArgs,
+        selected
+      };
+    },
+    template: \`
+      <TraeRadioGroup v-model="selected" disabled>
+        <TraeRadio value="1" label="Disabled 1" v-bind="radioArgs" />
+        <TraeRadio value="2" label="Disabled 2" v-bind="radioArgs" />
+      </TraeRadioGroup>
+    \`
+  })
+}`,...(A=(V=n.parameters)==null?void 0:V.docs)==null?void 0:A.source}}};var h,z,$;u.parameters={...u.parameters,docs:{...(h=u.parameters)==null?void 0:h.docs,source:{originalSource:`{
+  name: 'Vertical Group',
+  render: args => ({
+    components: {
+      TraeRadio,
+      TraeRadioGroup
+    },
+    setup() {
+      const selected = ref('1');
+      const {
+        value,
+        ...radioArgs
+      } = args;
+      return {
+        radioArgs,
+        selected
+      };
+    },
+    template: \`
+      <TraeRadioGroup v-model="selected" direction="vertical">
+        <TraeRadio value="1" label="Option 1" v-bind="radioArgs" />
+        <TraeRadio value="2" label="Option 2" v-bind="radioArgs" />
+        <TraeRadio value="3" label="Option 3" v-bind="radioArgs" />
+      </TraeRadioGroup>
+    \`
+  })
+}`,...($=(z=u.parameters)==null?void 0:z.docs)==null?void 0:$.source}}};const U=["Default","Disabled","VerticalGroup"];export{t as Default,n as Disabled,u as VerticalGroup,U as __namedExportsOrder,Q as default};
